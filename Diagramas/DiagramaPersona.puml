@@ -40,6 +40,15 @@ enum TipoID {
 class Empleado extends Persona {
     - contrato: Contrato
 }
+class Supervisor {
+    + turnos: ArrayList<Cliente>
+    + Supervisor(nombre: String, tipoID: TipoID, identificacion: String, correo: String, telefono: String, direccion: String, contrato: Contrato)
+    + asignarTurnoCliente(turno: int, cliente: Cliente): void
+    + buscarTurno(turno: int): Cliente
+    + getTurnoFirst(): Cliente
+    + getTurnoLast(): Cliente
+    + asignarHorarioEmpleado(horario: String, empleado: Empleado): void
+}
 
 class Contrato {
     - FechaInicio: Date

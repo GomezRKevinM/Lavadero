@@ -4,6 +4,7 @@ public class Vehiculo {
     private String marca;
     private String modelo;
     private String placa;
+    private String tipo;
     private String color;
     private String planta;
     private int identificador;

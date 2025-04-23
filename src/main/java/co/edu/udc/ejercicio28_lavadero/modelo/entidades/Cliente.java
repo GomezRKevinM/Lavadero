@@ -1,55 +1,45 @@
 package co.edu.udc.ejercicio28_lavadero.modelo.entidades;
 
-public class Cliente {
-    private String nombre;
-    private String apellido;
-    private Vehiculo vehiculo;
-    private String email;
-    private String telefono;
+import java.util.ArrayList;
+import java.util.List;
 
-    public Cliente(String apellido, String nombre, Vehiculo vehiculo) {
-        this.apellido = apellido;
-        this.nombre = nombre;
-        this.vehiculo = vehiculo;
+public class Cliente extends Persona {
+    List<Vehiculo> vehiculos = new ArrayList<>();
+    int turno;
+    public Cliente(String nombre,TipoID tipoID,String identificacion, String correo, String telefono, String direccion) {
+        super(nombre,tipoID,identificacion, correo, telefono, direccion);
     }
 
-    public String getNombre() {
-        return nombre;
+    public List<Vehiculo> getVehiculos() {
+        return vehiculos;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void agregarVehiculo(Vehiculo vehiculo) {
+        vehiculos.add(vehiculo);
     }
 
-    public String getApellido() {
-        return apellido;
+    public void eliminarVehiculo(Vehiculo vehiculo) {
+        vehiculos.remove(vehiculo);
     }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
+    public void modificarVehiculo(Vehiculo vehiculo) {
+        vehiculos.set(vehiculos.indexOf(vehiculo), vehiculo);
     }
 
-    public Vehiculo getVehiculo() {
-        return vehiculo;
+    public Vehiculo buscarVehiculo(String placa) {
+        for (Vehiculo vehiculo : vehiculos) {
+            if (vehiculo.getPlaca().equals(placa)) {
+                return vehiculo;
+            }
+        }
+        return null;
     }
 
-    public void setVehiculo(Vehiculo vehiculo) {
-        this.vehiculo = vehiculo;
+    public int getTurno() {
+        return turno;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
+    public void setTurno(int turno) {
+        this.turno = turno;
     }
 }

@@ -1,26 +1,31 @@
 package co.edu.udc.ejercicio28_lavadero.modelo.entidades;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import co.edu.udc.ejercicio28_lavadero.Color;
+
 public class InformacionPago {
-    private String nombreDeEmpresa;
+    private List<MetodoPago> metodos;
     private String direccion;
     private String telefono;
     private String email;
-    private String cuentas[];
+    private List<CuentaBancaria> cuentas = new ArrayList<>();
 
-    public InformacionPago(String nombreDeEmpresa, String direccion, String telefono, String email, String[] cuentas) {
-        this.nombreDeEmpresa = nombreDeEmpresa;
+    public InformacionPago(List<MetodoPago> metodos, String direccion, String telefono, String email, CuentaBancaria cuenta) {
+        this.metodos = metodos;
         this.direccion = direccion;
         this.telefono = telefono;
         this.email = email;
-        this.cuentas = cuentas;
+        this.cuentas.add(cuenta);
     }
 
-    public String getNombreDeEmpresa() {
-        return nombreDeEmpresa;
+    public List<MetodoPago> getMetodos() {
+        return metodos;
     }
 
-    public void setNombreDeEmpresa(String nombreDeEmpresa) {
-        this.nombreDeEmpresa = nombreDeEmpresa;
+    public void setMetodos(List<MetodoPago> metodos) {
+        this.metodos = metodos;
     }
 
     public String getDireccion() {
@@ -47,11 +52,43 @@ public class InformacionPago {
         this.email = email;
     }
 
-    public String[] getCuentas() {
-        return this.cuentas;
+    public List<CuentaBancaria> getCuentas() {        
+        return cuentas;
     }
 
-    public void setCuentas(String[] cuentas) {
+    public void setCuentas(List<CuentaBancaria> cuentas) {
         this.cuentas = cuentas;
     }
+
+    public void agregarCuentas(CuentaBancaria cuenta) {
+        this.cuentas.add(cuenta);
+    }
+
+    public void eliminarCuentas(CuentaBancaria cuenta) {
+        this.cuentas.remove(cuenta);
+    }
+
+    public void modificarCuentas(CuentaBancaria cuenta, CuentaBancaria nuevaCuenta) {
+        this.cuentas.set(this.cuentas.indexOf(cuenta), nuevaCuenta);
+    }
+
+    public void buscarCuentas(CuentaBancaria cuenta) {
+        for (CuentaBancaria cuenta1 : cuentas) {
+            if (cuenta1.equals(cuenta)) {
+                System.out.println("Cuenta encontrada: " + cuenta1);
+            }
+        }
+    }
+
+    public void showInformacionPago() {
+        System.out.println(Color.PURPLE_BOLD+"Información de pago: ");
+        System.out.println(Color.BLANCO_BOLD+"Metodos de pago: "+Color.AZUL_BLINK + metodos);
+        System.out.println(Color.BLANCO_BOLD+"Direccion: "+Color.AZUL_BLINK + direccion);
+        System.out.println(Color.BLANCO_BOLD+"Telefono: "+Color.AZUL_BLINK + telefono);
+        System.out.println(Color.BLANCO_BOLD+"Email: "+Color.AZUL_BLINK + email);
+        for(CuentaBancaria cuenta:cuentas){
+            cuenta.showInformacionCuenta();
+        }   
+    }
+
 }

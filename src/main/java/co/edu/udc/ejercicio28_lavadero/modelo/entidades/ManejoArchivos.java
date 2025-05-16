@@ -20,7 +20,7 @@ public class ManejoArchivos {
             
             salida.close();
             System.console().flush();
-            System.out.println("Se creo el archivo "+nombre);
+            System.out.println("Se creo el archivo "+nombre);   
         } catch (FileNotFoundException ex) {
             System.out.println("Error: "+ex);
         }

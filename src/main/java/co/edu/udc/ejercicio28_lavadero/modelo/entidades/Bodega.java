@@ -4,15 +4,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Bodega {
+
     private String codigo;
     private String ubicacion;
     private String nombre;
-    private List<Producto> productos = new ArrayList<>();
+    public ArrayList<Producto> productos = new ArrayList<>();
 
     public Bodega(String codigo, String ubicacion, String nombre) {
         this.codigo = codigo;
         this.ubicacion = ubicacion;
         this.nombre = nombre;
+    }
+
+    public Bodega(){
+        codigo = "0001";
+        ubicacion = "Local";
+        nombre = "Bodega 1";
+        productos = new ArrayList<>();
     }
 
     public String getCodigo() {
@@ -43,11 +51,17 @@ public class Bodega {
         return productos;
     }
 
-    public void setProductos(List<Producto> productos) {
+    public void setProductos(ArrayList<Producto> productos) {
         this.productos = productos;
     }
 
     public void addProductos(Producto producto) {
+        if (producto == null) {
+            throw new IllegalArgumentException("El producto no puede ser null");
+        }
+        if (getProducto(producto.getCodigo()) != null) {
+            throw new IllegalStateException("El producto ya existe en la bodega");
+        }
         this.productos.add(producto);
     }
 
@@ -69,41 +83,28 @@ public class Bodega {
     }   
 
     public void buscarProducto(String search, String por){
-        switch (por) {
-            case "Nombre":
-            System.out.println("Productos con nombre: "+search);
-                for(Producto producto: productos){
-                    if(producto.getNombreProducto().equalsIgnoreCase(search)){
-                        System.out.println(producto.getNombreProducto()+" Valor: $"+producto.getPrecio());
-                    }else{
-                        continue;
-                    }
-                }
-                break;
-            case "Categoria":
-            System.out.println("Productos con Categoria: "+search);
-            for(Producto producto: productos){
-                if(producto.getCategoria().equalsIgnoreCase(search)){
-                    System.out.println(producto.getNombreProducto()+" Valor: $"+producto.getPrecio());
-                }else{
-                    continue;
-                }
-            }
-                break;
-            case "Precio":
-                System.out.println("Productos con Categoria: "+search);
-                for(Producto producto: productos){
-                    if(producto.getPrecio()==Integer.valueOf(search)){
-                        System.out.println(producto.getNombreProducto()+" Valor: $"+producto.getPrecio());
-                    }else{
-                        continue;
-                    }
-                }
-                break;
-            default:
-                break;
-        }
+    switch (por) {
+        case "Nombre":
+            System.out.println("Productos con nombre: " + search);
+            productos.stream()
+                    .filter(p -> p.getNombreProducto().equalsIgnoreCase(search))
+                    .forEach(p -> System.out.println(p.getNombreProducto() + " Valor: $" + p.getPrecio()));
+            break;
+        case "Categoria":
+            System.out.println("Productos con Categoria: " + search);
+            productos.stream()
+                    .filter(p -> p.getCategoria().equalsIgnoreCase(search))
+                    .forEach(p -> System.out.println(p.getNombreProducto() + " Valor: $" + p.getPrecio()));
+            break;
+        case "Precio":
+            System.out.println("Productos con Precio: " + search);
+            double searchPrice = Double.parseDouble(search);
+            productos.stream()
+                    .filter(p -> p.getPrecio() == searchPrice)
+                    .forEach(p -> System.out.println(p.getNombreProducto() + " Valor: $" + p.getPrecio()));
+            break;
     }
+}
 
     public void ProductosAlerta(){
         for(Producto producto: productos){

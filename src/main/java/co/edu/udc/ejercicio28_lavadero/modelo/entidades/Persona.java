@@ -5,6 +5,7 @@ import java.util.Date;
 import co.edu.udc.ejercicio28_lavadero.Color;
 
 public class  Persona {
+
     protected String Nombre;
     protected TipoID TipoID;
     protected String Identificacion;

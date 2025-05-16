@@ -6,6 +6,7 @@ import java.util.List;
 import co.edu.udc.ejercicio28_lavadero.Color;
 
 public class Catalogo {
+    private String idCatalogo;
     private List<Categoria> categorias = new ArrayList<>();
     private List<Producto> productos = new ArrayList<>();
     private List<Servicio> servicios = new ArrayList<>();
@@ -69,4 +70,11 @@ public class Catalogo {
         }
     }
 
+    public String getIdCatalogo() {
+        return idCatalogo;
+    }
+
+    public void setIdCatalogo(String idCatalogo) {
+        this.idCatalogo = idCatalogo;
+    }
 }

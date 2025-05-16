@@ -1,6 +1,5 @@
 package co.edu.udc.ejercicio28_lavadero.modelo.entidades;
 
-
 public class Producto {
 
     private String codigo;
@@ -28,6 +27,10 @@ public class Producto {
 
     public double getPrecioDeCompra() {
         return precioDeCompra;
+    }
+
+    public void setPrecioDeCompra(double precioDeCompra) {
+        this.precioDeCompra = precioDeCompra;
     }
 
     public String getNombreProducto() {
@@ -98,4 +101,7 @@ public class Producto {
         return codigoDelProveedor;
     }
 
+    public void setCodigoDelProveedor(String codigoDelProveedor) {
+        this.codigoDelProveedor = codigoDelProveedor;
+    }
 }

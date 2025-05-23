@@ -1,13 +1,13 @@
 package co.edu.udc.ejercicio28_lavadero.modelo.entidades;
 
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
 public class Pedido  extends Documento{
     Date FechaMaximaEntrega;
-    cotizacion cotizacion;
+    Cotizacion cotizacion;
     String estado;
     List<DetallePedido> detalles = new ArrayList<>();
     double valorPagar;
@@ -20,6 +20,31 @@ public class Pedido  extends Documento{
         for(DetallePedido detalle: detalles){
             valorPagar += detalle.getPrecioTotal();
         }
+    }
+
+    public void setFechaMaximaEntrega(Date fechaMaximaEntrega) {
+        FechaMaximaEntrega = fechaMaximaEntrega;
+    }
+
+    public void setCotizacion(Cotizacion cotizacion) {
+        this.cotizacion = cotizacion;
+    }
+
+    @Override
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public void setDetalles(List<DetallePedido> detalles) {
+        this.detalles = detalles;
+    }
+
+    public void setValorPagar(double valorPagar) {
+        this.valorPagar = valorPagar;
+    }
+
+    public void setValorPagado(double valorPagado) {
+        this.valorPagado = valorPagado;
     }
 
     public String getEstado(){
@@ -43,7 +68,7 @@ public class Pedido  extends Documento{
     }
 
     public void generateComprobantePago(){
-        Date fechaPago = new Date();
+        Date fechaPago = new Date(2020,03,10);
         Scanner sc = new Scanner(System.in);
         System.out.println("Valor a pagar: "+this.getValorPagar());
         System.out.print("Se pagó: ");
@@ -68,7 +93,7 @@ public class Pedido  extends Documento{
         return FechaMaximaEntrega;
     }
 
-    public cotizacion getCotizacion() {
+    public Cotizacion getCotizacion() {
         return cotizacion;
     }
 

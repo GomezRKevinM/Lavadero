@@ -16,6 +16,14 @@ public class CuentaBancaria {
         this.saldoActual = saldoActual;
     }
 
+    public CuentaBancaria() {
+        numeroCuenta = "3215970852";
+        banco = "Banco de la Nacion Argentina";
+        tipoCuenta = "Corriente";
+        saldoActual = 1000000000.00;
+        titular = "Kevin Gomez";
+    }
+
     public String getNumeroCuenta() {
         return numeroCuenta;
     }

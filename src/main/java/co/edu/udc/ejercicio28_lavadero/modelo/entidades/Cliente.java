@@ -1,10 +1,12 @@
 package co.edu.udc.ejercicio28_lavadero.modelo.entidades;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Cliente extends Persona {
     List<Vehiculo> vehiculos = new ArrayList<>();
+
     int turno;
     public Cliente(String nombre,TipoID tipoID,String identificacion, String correo, String telefono, String direccion) {
         super(nombre,tipoID,identificacion, correo, telefono, direccion);

@@ -1,0 +1,66 @@
+@startuml ProductoCRUD_Database
+
+left to right direction
+
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+
+actor "Admin" as user
+database "base de datos" as db
+
+' Ejemplo de nota flotante
+note right of user : Administrador del sistema\nTiene todos los permisos
+
+rectangle "Sistema EmpleadoCRUD"{
+    usecase "Agregar" as cu1
+    usecase "buscar" as cu2
+    usecase "editar" as cu3
+    usecase "eliminar" as cu4
+    usecase "listarTodo" as cu5
+    usecase "contar" as cu6
+
+
+    note "Cuenta el total de\nregistros" as N1
+    cu6 .. N1
+}
+
+rectangle "Sistema DB"{
+   usecase "ConsultarData" as cudb1
+   usecase "InsertData" as cudb2
+   usecase "UpdateData" as cudb3
+   usecase "DeleteData" as cudb4
+}
+
+
+
+' relaciones db
+db --> cudb1
+db <-- cudb2
+db <-- cudb3
+db <-- cudb4
+
+' relaciones backend
+cu1 --> cudb2
+cu2 --> cudb1
+cu3 --> cudb3
+cu4 --> cudb4
+cu5 --> cudb1
+cu6 --|> cu5
+
+' Relaciones user - system
+user --> cu1
+user <-- cu2
+user --> cu3
+user --> cu4
+user <-- cu5
+
+'notas
+note left of db : Base de datos\nSQLite
+note right of cudb1 : Consulta datos
+note right of cudb2 : Inserta datos
+note right of cudb3 : Actualiza datos
+note right of cudb4 : Elimina datos
+note right of cu5: el usuario puede obtener todos los registros
+
+
+@enduml

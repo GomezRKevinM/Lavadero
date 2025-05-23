@@ -1,19 +1,25 @@
 package co.edu.udc.ejercicio28_lavadero.modelo.entidades;
 
-import java.util.Date;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 public class Contrato {
-    Date FechaInicio;
-    Date FechaFinal;
+    String id;
+    String FechaInicio;
+    String FechaFinal;
     double SueldoBase;
-    Empleado contratado;
-    Empresa contratante;
+    String ContratadoCC;
+    String ContratanteID;
     String horario;
     List<String> clausulas;
     Cargo cargo;
 
-    public Contrato(Date FechaInicio, double SueldoBase, Cargo cargo,Date FechaFinal, String horario){
+    public Contrato(String id,String FechaInicio, double SueldoBase, Cargo cargo,String FechaFinal, String horario){
+        this.id = id;
         this.FechaInicio = FechaInicio;
         this.FechaFinal = FechaFinal;
         this.SueldoBase = SueldoBase;
@@ -21,19 +27,56 @@ public class Contrato {
         this.horario = horario;
     }
 
-    public Date getFechaInicio() {
+    public Contrato(){
+        id = "0001";
+        FechaInicio = "2020-12-10";
+        Locale.setDefault(new Locale("es", "ES"));
+        FechaFinal = "2021-12-10";
+        SueldoBase = 0;
+        ContratadoCC = "1001973042";
+        ContratanteID = "";
+        horario = "7am a 5pm";
+        clausulas = new ArrayList<>();
+        cargo = Cargo.Tecnico;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getContratadoCC() {
+        return ContratadoCC;
+    }
+
+    public void setContratadoCC(String contratadoCC) {
+        ContratadoCC = contratadoCC;
+    }
+
+    public String getContratanteID() {
+        return ContratanteID;
+    }
+
+    public void setContratanteID(String contratanteID) {
+        ContratanteID = contratanteID;
+    }
+
+    public String getFechaInicio() {
         return FechaInicio;
     }
 
-    public void setFechaInicio(Date fechaInicio) {
+    public void setFechaInicio(String fechaInicio) {
         FechaInicio = fechaInicio;
     }
 
-    public Date getFechaFinal() {
+    public String getFechaFinal() {
         return FechaFinal;
     }
 
-    public void setFechaFinal(Date fechaFinal) {
+    public void setFechaFinal(String fechaFinal) {
         FechaFinal = fechaFinal;
     }
 
@@ -45,20 +88,20 @@ public class Contrato {
         SueldoBase = sueldoBase;
     }
 
-    public Empleado getContratado() {
-        return contratado;
+    public String getContratado() {
+        return ContratadoCC;
     }
 
-    public void setContratado(Empleado contratado) {
-        this.contratado = contratado;
+    public void setContratado(String ID) {
+        this.ContratadoCC = ID;
     }
 
-    public Empresa getContratante() {
-        return contratante;
+    public String getContratante() {
+        return ContratanteID;
     }
 
-    public void setContratante(Empresa contratante) {
-        this.contratante = contratante;
+    public void setContratante(String ID) {
+        this.ContratanteID = ID;
     }
 
     public String getHorario() {

@@ -1,17 +1,30 @@
 package co.edu.udc.ejercicio28_lavadero.modelo.entidades;
 
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Empleado extends Persona{
     Contrato contrato;
+    int id;
 
     public Empleado(String nombre, TipoID tipoID,String identificacion, String correo, String telefono, String direccion, Contrato contrato) {
         super(nombre, tipoID,identificacion, correo, telefono, direccion);
         this.contrato = contrato;
     }
 
+    public Empleado(){
+        super("Ivan Montero", co.edu.udc.ejercicio28_lavadero.modelo.entidades.TipoID.Cedula,"1001973042","patovamp@gmail.com","3145970852","Sincelejo Br Prado Cll 5B #45C-14");
+        contrato = new Contrato();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public Contrato getContrato() {
         return contrato;
@@ -44,7 +57,7 @@ public class Empleado extends Persona{
             for(Producto producto: recibidosIncorrecto){
                 System.out.println(producto.getNombreProducto());
             }
-            Date fecha = new Date();
+            Date fecha = new Date(System.currentTimeMillis());
             String Codigo = pedido.getCodigo()+1;
             NotaCorrecion correcion = new NotaCorrecion(Codigo, fecha, pedido.getFechaMaximaConfirmacion(), pedido.getCodigo(), "Productos recibidos incorrectos");
             

@@ -1,28 +1,39 @@
 package co.edu.udc.ejercicio28_lavadero.modelo.entidades;
 
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Date;
+
 
 import java.util.List;
 
 import co.edu.udc.ejercicio28_lavadero.Color;
 
-public class cotizacion extends Documento {
+public class Cotizacion extends Documento {
     private Date fechaExpiracion;
     private String estado;
     private List<DetalleCotizacion> detalles = new ArrayList<>();
-    private Proveedor proveedor;
+    private Provedor provedor;
     private Empleado realiza;
     private Empleado revisa;
     private Empresa empresa;
 
-    public cotizacion(String Codigo, Date FechaEmision, Date fechaExpiracion,Empleado realizado) {
+    public Cotizacion(String Codigo, Date FechaEmision, java.sql.Date fechaExpiracion, Empleado realizado) {
         super(Codigo, FechaEmision);
         this.fechaExpiracion = fechaExpiracion;
         this.realiza = realizado;
     }
 
+    public Cotizacion() {
+        super("1", new Date(2020, 4, 24));
+        this.estado = "Pendiente";
+        this.fechaExpiracion = new Date(2020, 4, 24);
+        this.detalles = new ArrayList<>();
+        this.provedor = new Provedor();
+        this.realiza = new Empleado();
+        this.revisa = new Empleado();
+        this.empresa = new Empresa();
 
+    }
 
     public void ShowCotizacion(){
         int pLen = 0;
@@ -52,16 +63,40 @@ public class cotizacion extends Documento {
         return estado;
     }
 
+    public Date getFechaExpiracion(){
+        return fechaExpiracion;
+    }
+
+    public void setFechaExpiracion(java.sql.Date fechaExpiracion){
+        this.fechaExpiracion = fechaExpiracion;
+    }
+
+    public void setEstado(String estado){
+        this.estado = estado;
+    }
+
     public Empleado getEmpleadoRealiza(){
         return realiza;
+    }
+
+    public void setRealiza(Empleado realiza){
+        this.realiza = realiza;
     }
 
     public Empleado getEmpleadoRevisa(){
         return revisa;
     }
 
-    public Proveedor getProveedor(){
-        return proveedor;
+    public void setRevisa(Empleado revisa){
+        this.revisa = revisa;
+    }
+
+    public void setProveedor(Provedor provedor){
+        this.provedor = provedor;
+    }
+
+    public Provedor getProveedor(){
+        return provedor;
     }
 
     public Empresa getEmpresa(){

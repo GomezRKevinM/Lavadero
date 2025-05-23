@@ -1,0 +1,13 @@
+[
+  {
+    "id": "0001",
+    "FechaInicio": "May 16, 2025, 8:09:16 PM",
+    "FechaFinal": "Dec 31, 2026, 12:00:00 AM",
+    "SueldoBase": 1500000.00,
+    "ContratadoCC": "1001973042",
+    "ContratanteID": "7502420013",
+    "horario": "7am a 5pm",
+    "clausulas": [],
+    "cargo": "Tecnico"
+  }
+]

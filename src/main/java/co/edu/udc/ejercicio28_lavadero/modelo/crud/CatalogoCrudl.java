@@ -2,27 +2,22 @@ package co.edu.udc.ejercicio28_lavadero.modelo.crud;
 
 import co.edu.udc.ejercicio28_lavadero.modelo.entidades.Catalogo;
 import co.edu.udc.ejercicio28_lavadero.modelo.entidades.ManejoArchivos;
+import co.edu.udc.ejercicio28_lavadero.util.InsertData;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-public class CatalogoCRUD {
+public class CatalogoCrudl {
 
     public ArrayList<Catalogo> listaCatalogos = new ArrayList<>();
 
-
     public void agregar(Catalogo catalogo) throws Exception {
-        CargarCatalogos();
-        for (Catalogo c : listaCatalogos) {
-            if (c.getIdCatalogo().equals(catalogo.getIdCatalogo())){
-                throw new Exception("Este catalogo ya existe");
-            }
-        }
-        listaCatalogos.add(catalogo);
-        guardarDatos();
-        System.out.println("Catalogo agregado: "+catalogo.getIdCatalogo());
+        InsertData.Catalogo(catalogo.getIdCatalogo());
     }
 
     public Catalogo buscar(String id)throws Exception{
@@ -86,11 +81,13 @@ public class CatalogoCRUD {
     public void CargarCatalogos() throws FileNotFoundException {
         Gson gson = new Gson();
         FileReader reader = new FileReader("DB/Catalogos.json");
-        listaCatalogos = gson.fromJson(reader, listaCatalogos.getClass());
+        Type catalogoTypeList = new TypeToken<ArrayList<Catalogo>>(){}.getType();
+        listaCatalogos = gson.fromJson(reader, catalogoTypeList);
     }
 
     public void guardarDatos() throws Exception{
-        String json = new Gson().toJson(listaCatalogos);
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String json = gson.toJson(listaCatalogos);
         ManejoArchivos.escribirArchivo("DB/Catalogos.json",json);
     }
 }

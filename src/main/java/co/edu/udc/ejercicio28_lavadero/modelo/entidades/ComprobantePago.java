@@ -5,30 +5,64 @@ import java.util.Date;
 public class ComprobantePago {
     String codigo;
     Date fechaPago = new Date(System.currentTimeMillis());
-    Empresa empresa;
-    Proveedor proveedor;
+    String codigoEmpresa;
+    String codigoProveedor;
     double valorAPagar;
     double valorPagado;
-    CuentaBancaria cuentaBancariaDeLaEmpresa = empresa.getInformacionDePago().getCuentas().get(0);
+    CuentaBancaria cuentaBancariaDeLaEmpresa;
     MetodoPago tipoPago;
 
-    public ComprobantePago(Date fechaPago2, double valorAPagar, double valorPagado, MetodoPago tipoPago) {
-        this.fechaPago = fechaPago2;
+    public ComprobantePago(){
+        codigo = "0001";
+        fechaPago = new Date(System.currentTimeMillis());
+        valorPagado = 20000.50;
+        valorAPagar = 20000.50;
+        tipoPago = MetodoPago.Efectivo;
+        codigoEmpresa = "7502420013";
+        codigoProveedor = "NIT-1001";
+    }
+
+    public ComprobantePago(Date fechaPago, double valorAPagar, double valorPagado, MetodoPago tipoPago) {
+        this.fechaPago = fechaPago;
+        this.valorPagado = valorPagado;
         this.valorAPagar = valorAPagar;
         this.tipoPago = tipoPago;
-        
+    }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
+    public void setEmpresa(String empresa) {
+        this.codigoEmpresa = empresa;
+    }
+
+    public void setProveedor(String proveedor) {
+        this.codigoProveedor = proveedor;
+    }
+
+    public double getValorAPagar() {
+        return valorAPagar;
+    }
+
+    public void setValorAPagar(double valorAPagar) {
+        this.valorAPagar = valorAPagar;
     }
 
     public Date getFechaPago() {
         return fechaPago;
     }
 
-    public Empresa getEmpresa() {
-        return empresa;
+    public String getEmpresa() {
+        return codigoEmpresa;
     }
 
-    public Proveedor getProveedor() {
-        return proveedor;
+    public String getProveedor() {
+        return codigoProveedor;
     }
 
     public void setFechaPago(Date fechaPago) {

@@ -1,0 +1,12 @@
+[
+  {
+    "codigo": "L001",
+    "nombre": "Lubricantes",
+    "icono": "lubricante.png"
+  },
+  {
+    "codigo": "01",
+    "nombre": "Repuestos",
+    "icono": "repuestos.png"
+  }
+]

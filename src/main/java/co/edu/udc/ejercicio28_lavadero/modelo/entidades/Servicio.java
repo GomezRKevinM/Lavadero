@@ -1,6 +1,11 @@
 package co.edu.udc.ejercicio28_lavadero.modelo.entidades;
 
-import java.util.Date;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Servicio {
@@ -8,14 +13,6 @@ public class Servicio {
     String nombre;
     String descripcion;
     double precioDeVenta;
-    double porcentajeIva;
-    double valorCorrespondienteIVA;
-    double precioTotalConIva;
-    double descuento;
-    double precioTotal;
-    Vehiculo vehiculo;
-    Date fechaInicio;
-    Date fechaFin;
     List<Empleado> funcionarios;
     String imagen;
     boolean disponibilidad;
@@ -31,12 +28,19 @@ public class Servicio {
         this.categoria = categoria;
     }
 
-    public String getCodigo() {
-        return codigo;
+    public String getFuncionariosJSON(){
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        return gson.toJson(funcionarios);
     }
 
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
+    public ArrayList<Empleado> getFuncionariosArray(String funcionariosJSON){
+        Gson gson = new Gson();
+        Type token = new TypeToken<ArrayList<Empleado>>(){}.getType();
+        return gson.fromJson(funcionariosJSON, token);
+    }
+
+    public String getCodigo() {
+        return codigo;
     }
 
     public String getNombre() {
@@ -61,70 +65,6 @@ public class Servicio {
 
     public void setPrecioDeVenta(double precioDeVenta) {
         this.precioDeVenta = precioDeVenta;
-    }
-
-    public double getPorcentajeIva() {
-        return porcentajeIva;
-    }
-
-    public void setPorcentajeIva(double porcentajeIva) {
-        this.porcentajeIva = porcentajeIva;
-    }
-
-    public double getValorCorrespondienteIVA() {
-        return valorCorrespondienteIVA;
-    }
-
-    public void setValorCorrespondienteIVA(double valorCorrespondienteIVA) {
-        this.valorCorrespondienteIVA = valorCorrespondienteIVA;
-    }
-
-    public double getPrecioTotalConIva() {
-        return precioTotalConIva;
-    }
-
-    public void setPrecioTotalConIva(double precioTotalConIva) {
-        this.precioTotalConIva = precioTotalConIva;
-    }
-
-    public double getDescuento() {
-        return descuento;
-    }
-
-    public void setDescuento(double descuento) {
-        this.descuento = descuento;
-    }
-
-    public double getPrecioTotal() {
-        return precioTotal;
-    }
-
-    public void setPrecioTotal(double precioTotal) {
-        this.precioTotal = precioTotal;
-    }
-
-    public Vehiculo getVehiculo() {
-        return vehiculo;
-    }
-
-    public void setVehiculo(Vehiculo vehiculo) {
-        this.vehiculo = vehiculo;
-    }
-
-    public Date getFechaInicio() {
-        return fechaInicio;
-    }
-
-    public void setFechaInicio(Date fechaInicio) {
-        this.fechaInicio = fechaInicio;
-    }
-
-    public Date getFechaFin() {
-        return fechaFin;
-    }
-
-    public void setFechaFin(Date fechaFin) {
-        this.fechaFin = fechaFin;
     }
 
     public List<Empleado> getFuncionario() {

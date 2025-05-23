@@ -1,0 +1,17 @@
+[
+
+  {
+    "nombre": "Repuestos SAS",
+    "id": "NIT-1001",
+    "informacionPago": {
+      "metodos": [],
+      "direccion": "enrique C4 #50B-43",
+      "telefono": "3224523451",
+      "email": "ventas@repsas.com",
+      "cuentas": [
+
+      ]
+    }
+  }
+
+]

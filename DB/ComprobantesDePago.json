@@ -1,0 +1,11 @@
+[
+  {
+    "codigo": "0001",
+    "fechaPago": "May 16, 2025, 6:13:39 PM",
+    "codigoEmpresa": "7502420013",
+    "codigoProveedor": "NIT-1001",
+    "valorAPagar": 20000.5,
+    "valorPagado": 20000.5,
+    "tipoPago": "Efectivo"
+  }
+]

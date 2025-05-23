@@ -11,8 +11,8 @@ public class Credito extends InformacionPago{
     Date FechaInicial;
     double pagosMensuales;
 
-    public Credito(List<MetodoPago> metodos, String direccion, String telefono, String email, CuentaBancaria cuenta, Date fechaVencimiento, int limiteCredito, Date fechaInicial, double pagosMensuales) {
-        super(metodos, direccion, telefono, email, cuenta);
+    public Credito(int id,List<MetodoPago> metodos, String direccion, String telefono, String email, CuentaBancaria cuenta, Date fechaVencimiento, int limiteCredito, Date fechaInicial, double pagosMensuales) {
+        super(id,metodos, direccion, telefono, email, cuenta);
         this.FechaVencimiento = fechaVencimiento;
         this.limiteCredito = limiteCredito;
         this.FechaInicial = fechaInicial;

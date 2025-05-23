@@ -3,41 +3,31 @@ import co.edu.udc.ejercicio28_lavadero.Color;
 import co.edu.udc.ejercicio28_lavadero.modelo.entidades.AreaDeTrabajo;
 import co.edu.udc.ejercicio28_lavadero.modelo.entidades.Cubiculo;
 import co.edu.udc.ejercicio28_lavadero.modelo.entidades.ManejoArchivos;
+import co.edu.udc.ejercicio28_lavadero.util.InsertData;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-import java.awt.geom.Area;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 
-public class AreaDeTrabajoCRUD {
+public class AreaDeTrabajoCrudl {
 
     public static ArrayList<AreaDeTrabajo> listaAreas = new ArrayList<>();
 
     public static void main(String[] args) throws IOException, InterruptedException {
-
+        for(AreaDeTrabajo area: listarTodo()){
+            InsertData.AreaDeTrabajo(area.getNombreAreaDeTrabajo(),area.getDescripcion());
+        }
     }
 
     public static void agregar(AreaDeTrabajo area){
-        try{
-            cargarAreas();
-            for (AreaDeTrabajo areaDeTrabajo : listaAreas) {
-                if(area.getIdAreaDeTrabajo().equals(areaDeTrabajo.getIdAreaDeTrabajo())){
-                    throw new Exception("El area de trabajo ya existe");
-                }
-            }
-            listaAreas.add(area);
-            guardarDatos();
-            System.out.println("Area de trabajo agregada: "+area.getIdAreaDeTrabajo());
-        }catch (Exception e){
-            System.out.println("Error: "+e.getMessage());
-        }
+        InsertData.AreaDeTrabajo(area.getNombreAreaDeTrabajo(),area.getDescripcion());
     }
 
     public AreaDeTrabajo buscar(String id) throws Exception {
@@ -157,7 +147,7 @@ public class AreaDeTrabajoCRUD {
        }
     }
 
-    public ArrayList<AreaDeTrabajo> listarTodo() throws FileNotFoundException {
+    public static ArrayList<AreaDeTrabajo> listarTodo() throws FileNotFoundException {
         cargarAreas();
         return listaAreas;
     }
@@ -175,7 +165,7 @@ public class AreaDeTrabajoCRUD {
     }
 
     public static void guardarDatos() throws IOException, InterruptedException {
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String json = gson.toJson(listaAreas);
         ManejoArchivos.escribirArchivo("DB/Areas.json", json);
         System.out.println("Areas guardadas en archivo");

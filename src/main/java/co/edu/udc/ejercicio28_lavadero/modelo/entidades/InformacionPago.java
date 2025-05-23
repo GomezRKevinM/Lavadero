@@ -6,18 +6,32 @@ import java.util.List;
 import co.edu.udc.ejercicio28_lavadero.Color;
 
 public class InformacionPago {
+    private int id;
     private List<MetodoPago> metodos;
     private String direccion;
     private String telefono;
     private String email;
     private List<CuentaBancaria> cuentas = new ArrayList<>();
 
-    public InformacionPago(List<MetodoPago> metodos, String direccion, String telefono, String email, CuentaBancaria cuenta) {
+    public InformacionPago(int id,List<MetodoPago> metodos, String direccion, String telefono, String email, CuentaBancaria cuenta) {
         this.metodos = metodos;
         this.direccion = direccion;
         this.telefono = telefono;
         this.email = email;
         this.cuentas.add(cuenta);
+    }
+
+    public InformacionPago(){
+        id=0;
+        metodos = new ArrayList<>();
+        direccion = "";
+        telefono = "";
+        email = "";
+        cuentas.add(new CuentaBancaria());
+    }
+
+    public int getId() {
+        return id;
     }
 
     public List<MetodoPago> getMetodos() {

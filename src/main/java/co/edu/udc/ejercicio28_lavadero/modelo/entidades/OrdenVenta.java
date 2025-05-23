@@ -1,13 +1,13 @@
 package co.edu.udc.ejercicio28_lavadero.modelo.entidades;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 public class OrdenVenta extends Documento {
     List<DetalleVentaServicio> detalleVentaServicios;
     List<DetalleVentaProducto> detalleVentaProductos;
 
-    public OrdenVenta(String codigo, Date fechaEmision,DetalleVentaProducto detalleVentaProducto,DetalleVentaServicio detalleVentaServicio) {
+    public OrdenVenta(String codigo, Date fechaEmision, DetalleVentaProducto detalleVentaProducto, DetalleVentaServicio detalleVentaServicio) {
         super(codigo, fechaEmision);
         detalleVentaProductos.add(detalleVentaProducto);
         detalleVentaServicios.add(detalleVentaServicio);

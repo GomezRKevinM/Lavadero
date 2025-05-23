@@ -6,31 +6,22 @@ import java.util.List;
 import co.edu.udc.ejercicio28_lavadero.Color;
 
 public class Catalogo {
+
     private String idCatalogo;
+    private String nombre;
     private List<Categoria> categorias = new ArrayList<>();
     private List<Producto> productos = new ArrayList<>();
     private List<Servicio> servicios = new ArrayList<>();
     private List<Empleado> empleadosQueHanMostrado = new ArrayList<>();
 
-    public List<Categoria> getCategorias() {
-        return categorias;
+    public Catalogo(String idCatalogo, String nombre) {
+        this.idCatalogo = idCatalogo;
+        this.nombre = nombre;
     }
 
-    public void showCatalogo() {
-        for (Categoria categoria : categorias) {
-            System.out.println(categoria.getNombre());
-            for (Producto producto : productos) {
-                if (producto.getCategoria().equalsIgnoreCase(categoria.getNombre())) {
-                    System.out.println(Color.BLANCO_BOLD+producto.getNombreProducto()+Color.AMARILLO_BOLD+" Valor:"+ Color.VERDE_BOLD+"$"+producto.getPrecio()+ Color.AMARILLO_BOLD+" Stock:"+Color.VERDE_BOLD+producto.getStock()+Color.BLANCO_BOLD+" Marca:"+Color.VERDE_BOLD+producto.getMarca()+Color.BLANCO_BOLD+" Precio de compra:"+Color.VERDE_BOLD+"$"+producto.getPrecioDeCompra());
-                }
-            }
-            for (Servicio servicio : servicios) {
-                if(servicio.getCategoria().getNombre().equalsIgnoreCase(categoria.getNombre())) {
-                    System.out.println(Color.BLANCO_BOLD+servicio.getNombre()+Color.AMARILLO_BOLD+" Valor:"+Color.VERDE_BOLD+"$"+servicio.getPrecioDeVenta());
-            }
-        }
-        }
-
+    public Catalogo(){}
+    public List<Categoria> getCategorias() {
+        return categorias;
     }
 
     public List<Producto> getProductos() {
@@ -76,5 +67,13 @@ public class Catalogo {
 
     public void setIdCatalogo(String idCatalogo) {
         this.idCatalogo = idCatalogo;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 }

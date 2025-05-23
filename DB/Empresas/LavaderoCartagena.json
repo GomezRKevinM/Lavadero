@@ -1,0 +1,90 @@
+{
+  "nombre": "Lavadero Cartagena",
+  "codigo": "7502420013",
+  "informacionDePago": {
+    "metodos": [
+      "Efectivo",
+      "Transferencia"
+    ],
+    "direccion": "Barrio libertador Cll3B #60B-55",
+    "telefono": "3215970852",
+    "email": "tecnoPagos@gmail.com",
+    "cuentas": [
+      {
+        "numeroCuenta": "3215970852",
+        "banco": "Nequi",
+        "tipoCuenta": "Cuenta Corriente",
+        "saldoActual": 0.0,
+        "titular": "Kevin Manuel Gómez Rojas"
+      }
+    ]
+  },
+  "areasDeTrabajo": [],
+  "empleados": [
+    {
+      "contrato": {
+        "SueldoBase": 0.0,
+        "horario": "Lunes a Viernes",
+        "clausulas": [
+          "No usar la lavadora",
+          "No usar el lavaplatos",
+          "No usar el lavavajillas"
+        ]
+      }
+    }
+  ],
+  "bodegas": [
+    {
+      "codigo": "-1195634710",
+      "ubicacion": "",
+      "nombre": "Local",
+      "productos": [
+        {
+          "codigo": "1976261904",
+          "nombreProducto": "Aromatizante",
+          "precio": 25000.0,
+          "stock": 10,
+          "marca": "SplashAmerican",
+          "precioDeCompra": 0.0,
+          "disponibilidad": true,
+          "alerta": 0
+        },
+        {
+          "codigo": "-314473854",
+          "nombreProducto": "Esponja ultra absorbente",
+          "precio": 10000.0,
+          "stock": 15,
+          "marca": "",
+          "precioDeCompra": 6000.0,
+          "disponibilidad": true,
+          "alerta": 10,
+          "codigoDelProveedor": "-1195634710"
+        },
+        {
+          "codigo": "297072958",
+          "nombreProducto": "Cadena de moto",
+          "precio": 120000.0,
+          "stock": 25,
+          "marca": "Generic",
+          "precioDeCompra": 70000.0,
+          "disponibilidad": true,
+          "alerta": 10,
+          "codigoDelProveedor": "-1195634710"
+        }
+      ]
+    }
+  ],
+  "proveedores": [],
+  "clientes": [
+    {
+      "vehiculos": [],
+      "turno": 0,
+      "Nombre": "Kevin Manuel Gómez Rojas",
+      "TipoID": "Cedula",
+      "Identificacion": "1001973042",
+      "Correo": "kevin@gmail.com",
+      "Telefono": "Barrio libertador Cll3B #60B-55",
+      "Direccion": "3215970852"
+    }
+  ]
+}

@@ -9,13 +9,32 @@ public class Vehiculo {
     private String planta;
     private int identificador;
 
-    public Vehiculo(String marca, String modelo, String placa, String color, String planta, int identificador) {
+    public Vehiculo(String marca, String modelo,String tipo, String placa, String color, String planta, int identificador) {
         this.marca = marca;
         this.modelo = modelo;
+        this.tipo = tipo;
         this.placa = placa;
         this.color = color;
         this.planta = planta;
         this.identificador = identificador;
+    }
+
+    public Vehiculo(){
+        marca = "Mazda";
+        modelo = "CX-7";
+        placa = "ABC-123";
+        color = "Rojo";
+        planta = "Planta 1";
+        identificador = 1;
+        tipo = "Coche";
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public String getMarca() {

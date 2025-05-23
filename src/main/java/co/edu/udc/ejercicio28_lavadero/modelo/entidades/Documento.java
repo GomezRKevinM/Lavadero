@@ -1,6 +1,6 @@
 package co.edu.udc.ejercicio28_lavadero.modelo.entidades;
 
-import java.util.Date;
+import java.sql.Date;
 
 public abstract class Documento {
     String Codigo;

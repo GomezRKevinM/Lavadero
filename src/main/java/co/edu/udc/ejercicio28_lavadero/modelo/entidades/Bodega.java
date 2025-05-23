@@ -93,7 +93,7 @@ public class Bodega {
         case "Categoria":
             System.out.println("Productos con Categoria: " + search);
             productos.stream()
-                    .filter(p -> p.getCategoria().equalsIgnoreCase(search))
+                    .filter(p -> p.getCategoria()==Integer.parseInt(search))
                     .forEach(p -> System.out.println(p.getNombreProducto() + " Valor: $" + p.getPrecio()));
             break;
         case "Precio":

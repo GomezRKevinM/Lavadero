@@ -1,18 +1,20 @@
 package co.edu.udc.ejercicio28_lavadero;
 
 import java.io.IOException;
+
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+
+import co.edu.udc.ejercicio28_lavadero.modelo.crud.*;
+import co.edu.udc.ejercicio28_lavadero.util.*;
 
 
 import co.edu.udc.ejercicio28_lavadero.modelo.entidades.*;
 
-import java.util.Calendar;
-import java.util.Currency;
-import java.util.Date;
-import java.util.Locale;
-import java.util.Scanner;
+import java.util.*;
+
 import com.google.gson.Gson;
+
 import java.io.FileReader;
 
 
@@ -25,10 +27,59 @@ import java.io.FileReader;
 public class Principal {
     
 
-    public static void main(String[] args) throws InterruptedException, IOException {
-        Empresa empresaCargada = cargarEmpresa("Tecnil");
-                System.out.println("Empresa cargada: "+empresaCargada.getNombre());
-                menuEmpresa(empresaCargada);
+    public static void main(String[] args) throws Exception {
+        ClienteCrudl crud = new ClienteCrudl();
+        for(Cliente cliente: crud.listarTodo()){
+            crud.agregar(cliente);
+        }
+    }
+
+    public static void categoriaMenu() throws Exception {
+        CategoriaCrudl crud = new CategoriaCrudl();
+        limpiarPantalla();
+        Scanner input = new Scanner(System.in);
+        System.out.println(Color.CYAN_BOLD+"Menu Categorias"+Color.RESET);
+        System.out.println("1) Crear Categoria");
+        System.out.println("2) Buscar Categoria");
+        System.out.println("3) Editar Categoria");
+        System.out.println("4) Eliminar Categoria");
+        String select = input.nextLine();
+        switch (select){
+            case "1":
+                limpiarPantalla();
+                System.out.println("Nombre de la categoria: ");
+                String nombreCategoria = input.nextLine();
+                limpiarPantalla();
+                System.out.println("Icono: ");
+                String icono = input.nextLine();
+                Categoria nueva = new Categoria(nombreCategoria,icono);
+                crud.agregar(nueva);
+                categoriaMenu();
+                break;
+            case "2":
+                limpiarPantalla();
+                System.out.print(Color.CYAN_BLINK+"Buscar Categoria (nombre o codigo): ");
+                String busqueda = input.nextLine();
+                Categoria encontrada = crud.buscar(Integer.parseInt(busqueda));
+                System.out.println("Codigo: "+encontrada.getCodigo());
+                System.out.println("Categoria: "+encontrada.getNombre());
+                System.out.println("Icono: "+encontrada.getIcono());
+                break;
+            case "3":
+                System.out.print("Ingrese el codigo de la categoria a editar: ");
+                String codigoCategoria = input.nextLine();
+                crud.editar(crud.buscar(Integer.parseInt(codigoCategoria)));
+                break;
+            case "4":
+                System.out.print("Ingrese el codigo de la categoria a eliminar: ");
+                String codigoCategoriaEliminar = input.nextLine();
+                DeleteData.DeleteTable("Categorias","codigo",Integer.parseInt(codigoCategoriaEliminar));
+                break;
+            default:
+                System.out.println("Opcion no valida");
+                break;
+        }
+        input.close();
     }
 
     public static void menuPrincipal() throws InterruptedException, IOException{
@@ -69,7 +120,6 @@ public class Principal {
         Scanner sc = new Scanner(System.in);
        while(opcion > 5 || opcion < 1){
         limpiarPantalla();
-
         System.out.println(Color.PURPLE_BOLD+" Bienvenido a la empresa "+Color.VERDE_BLINK+empresa.getNombre()+Color.CYAN_BOLD);
         System.out.println("  1."+Color.BLANCO_BOLD+" catalogo"+Color.CYAN_BOLD);
         System.out.println("  2."+Color.BLANCO_BOLD+" empleados"+Color.CYAN_BOLD);
@@ -318,10 +368,8 @@ public class Principal {
                 int stock = Integer.parseInt(sc.nextLine());
                
                 String codigo = String.valueOf((nombre+empresa.getNombre()).hashCode());
-                Producto producto = new Producto(nombre,codigo,precio,precioCompra,marca,stock,10,bodegaCodigo);
                 for(Bodega bodega: empresa.getBodegas()){
                     if(bodega.getCodigo().equalsIgnoreCase(bodegaCodigo)){
-                        bodega.addProductos(producto);
                         ManejoArchivos.escribirArchivo("DB/Empresas/"+empresa.getNombre()+".json", new Gson().toJson(empresa));
                         System.out.println(Color.VERDE_BOLD+"Producto creado con exito"+Color.RESET);
                         System.out.println("Presione enter para continuar");
@@ -352,8 +400,7 @@ public class Principal {
                             String nombreCategoria = sc.next();
                             String codigoCategoria = String.valueOf((nombreCategoria+empresa.getNombre()).hashCode());
                             Categoria categoria = new Categoria(nombreCategoria,"default.png",codigoCategoria);
-                            empresa.getCatalogo().addCategoria(categoria);
-                            categoria.addProductos(producto);
+
                             ManejoArchivos.escribirArchivo("DB/Empresas/"+empresa.getNombre()+".json", new Gson().toJson(empresa));
                             System.out.println(Color.VERDE_BOLD+"Categoria creada con exito"+Color.RESET);
                             System.out.println(Color.VERDE_BOLD+"Producto agregado a la categoria"+Color.PURPLE_BOLD+categoria.getNombre()+Color.RESET);
@@ -371,7 +418,7 @@ public class Principal {
                         String codigoCategoria = sc.nextLine();
                         for(Categoria categoria: empresa.getCatalogo().getCategorias()){
                             if(categoria.getCodigo().equalsIgnoreCase(codigoCategoria)){
-                                categoria.addProductos(producto);
+
                                 System.out.println(Color.VERDE_BOLD+"Producto agregado a la categoria"+Color.PURPLE_BOLD+categoria.getNombre()+Color.RESET);
                                 System.out.println("Presione enter para continuar");
                                 sc.nextLine();
@@ -620,7 +667,7 @@ public class Principal {
                 String horario = entrada.nextLine();
                 
 
-                Contrato contrato = new Contrato(fechaInicio, salario,cargoEmpleado, fechaFinal, horario);
+                Contrato contrato = new Contrato();
                 Empleado empleado = new Empleado(nombre, tipo, identificacion, correo, telefono, direccion, contrato);
                 empresa.agregarEmpleado(empleado);
 
@@ -906,8 +953,8 @@ public class Principal {
     }
 
     public static void listarProveedores(Empresa empresa){
-        for(Proveedor proveedor: empresa.getProveedores()){
-            System.out.println(proveedor.getNombre());
+        for(Provedor provedor : empresa.getProveedores()){
+            System.out.println(provedor.getNombre());
         }
     }
     

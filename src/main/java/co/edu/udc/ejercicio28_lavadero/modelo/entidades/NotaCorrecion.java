@@ -1,7 +1,7 @@
 package co.edu.udc.ejercicio28_lavadero.modelo.entidades;
 
-import java.util.Date;
 
+import java.sql.Date;
 
 public class NotaCorrecion extends Documento {
     Date fechaMaximaConfirmacion;
@@ -9,11 +9,11 @@ public class NotaCorrecion extends Documento {
     String observaciones;
     String codigoPedido;
     Empresa empresa;
-    Proveedor proveedor;
+    Provedor provedor;
     DetalleNotaCorrecion detalle = new DetalleNotaCorrecion();
 
 
-    public NotaCorrecion(String Codigo, Date FechaEmision, Date fechaMaximaConfirmacion,String codigoPedido, String observaciones) {
+    public NotaCorrecion(String Codigo, Date FechaEmision, Date fechaMaximaConfirmacion, String codigoPedido, String observaciones) {
         super(Codigo, FechaEmision);
         this.fechaMaximaConfirmacion = fechaMaximaConfirmacion;
         this.codigoPedido = codigoPedido;

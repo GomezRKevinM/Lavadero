@@ -32,7 +32,6 @@ public class ManejoArchivos {
             PrintWriter salida = new PrintWriter(archivo);
             salida.println(texto);
             salida.close();
-            System.out.println("Se escribio en el archivo "+nombre);
         } catch (FileNotFoundException ex) {
             System.out.println("Error: "+ex);
         }

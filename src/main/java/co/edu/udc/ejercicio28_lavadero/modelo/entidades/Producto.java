@@ -4,17 +4,18 @@ public class Producto {
 
     private String codigo;
     private String nombreProducto;
-    private String Categoria;
+    private int Categoria;
     private double precio;
     private int stock;
     private String marca;
     private double precioDeCompra;
     private Boolean disponibilidad;
     private int alerta;
-    private String codigoDelProveedor;
+    private int codigoDelProveedor;
 
-    public Producto(String nombreProducto, String codigo, double precio, double precioDeCompra, String marca, int stock, int alerta, String codigoDelProveedor) {
+    public Producto(String nombreProducto,String marca,int categoria, String codigo, double precio, double precioDeCompra, int stock, int alerta, int codigoDelProveedor) {
         this.nombreProducto = nombreProducto;
+        this.Categoria = categoria;
         this.codigo = codigo;
         this.precio = precio;
         this.precioDeCompra = precioDeCompra;
@@ -41,12 +42,12 @@ public class Producto {
         this.nombreProducto = nombreProducto;
     }
 
-    public String getCategoria(){
+    public int getCategoria(){
         return Categoria;
     }
 
-    public void setCategoria(String nombre){
-        Categoria = nombre;
+    public void setCategoria(int id){
+        Categoria = id;
     }
 
     public String getCodigo() {
@@ -97,11 +98,11 @@ public class Producto {
         this.alerta = alerta;
     }
 
-    public String getCodigoDelProveedor() {
+    public int getCodigoDelProveedor() {
         return codigoDelProveedor;
     }
 
-    public void setCodigoDelProveedor(String codigoDelProveedor) {
+    public void setCodigoDelProveedor(int codigoDelProveedor) {
         this.codigoDelProveedor = codigoDelProveedor;
     }
 }

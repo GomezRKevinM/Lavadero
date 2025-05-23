@@ -1,0 +1,26 @@
+[
+  {
+    "codigo": "A01",
+    "ubicacion": "Local 2",
+    "nombre": "Almacen de repuestos",
+    "productos": []
+  },
+  {
+    "codigo": "0001",
+    "ubicacion": "Local",
+    "nombre": "Bodega 1",
+    "productos": [
+      {
+        "codigo": "1002",
+        "nombreProducto": "Bolsa",
+        "precio": 1000.0,
+        "stock": 10,
+        "marca": "generic",
+        "precioDeCompra": 100.0,
+        "disponibilidad": true,
+        "alerta": 10,
+        "codigoDelProveedor": "P01"
+      }
+    ]
+  }
+]

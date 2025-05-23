@@ -8,20 +8,25 @@ import co.edu.udc.ejercicio28_lavadero.Color;
 public class Empresa {
     private String nombre;
     private String codigo;
-    private InformacionPago informacionDePago;
+    private InformacionPago informacionDePago = new InformacionPago();
     private List<AreaDeTrabajo> areasDeTrabajo = new ArrayList<>();
     private List<NotaCorrecion> notasCorrecion = new ArrayList<>();
     private List<ComprobantePago> comprobantes = new ArrayList<>();
-    private List<cotizacion> cotizaciones = new ArrayList<>();
+    private List<Cotizacion> cotizaciones = new ArrayList<>();
     private List<Empleado> empleados = new ArrayList<>();
     private Catalogo catalogo = new Catalogo();
     private List<Bodega> bodegas = new ArrayList<>();
-    private List<Proveedor> proveedores = new ArrayList<>();
+    private List<Provedor> proveedores = new ArrayList<>();
     private List<Cliente> clientes = new ArrayList<>();
 
     public Empresa(String nombre, String codigo) {
         this.nombre = nombre;
         this.codigo = codigo;
+    }
+
+    public Empresa(){
+        nombre = "Empresa 1";
+        codigo = "E001";
     }
 
     public String getNombre() {
@@ -35,7 +40,6 @@ public class Empresa {
     public String getCodigo() {
         return codigo;
     }
-
 
     public InformacionPago getInformacionDePago() {
         return informacionDePago;
@@ -71,10 +75,6 @@ public class Empresa {
         return null; 
     }
 
-    public void showCatalogo(){
-        catalogo.showCatalogo();
-    }
-
     public List<Bodega> getBodegas() {
         return bodegas;
     }
@@ -87,16 +87,16 @@ public class Empresa {
         bodegas.remove(bodega);
     }
 
-    public List<Proveedor> getProveedores() {
+    public List<Provedor> getProveedores() {
         return proveedores;
     }
 
-    public void agregarProveedor(Proveedor proveedor) {        
-        proveedores.add(proveedor);
+    public void agregarProveedor(Provedor provedor) {
+        proveedores.add(provedor);
     }
 
-    public void eliminarProveedor(Proveedor proveedor){
-        proveedores.remove(proveedor);
+    public void eliminarProveedor(Provedor provedor){
+        proveedores.remove(provedor);
     }
 
     public List<Cliente> getClientes() {
@@ -136,7 +136,7 @@ public class Empresa {
         return contratos;
     }
 
-    public List<cotizacion> getCotizaciones() {
+    public List<Cotizacion> getCotizaciones() {
         return cotizaciones;
     }
 
@@ -160,13 +160,21 @@ public class Empresa {
     public void getProveedoresDeProductosAgotados(){
         for(Producto producto: catalogo.getProductos()){
             if(producto.getStock() <= producto.getAlerta()){
-                for(Proveedor proveedor: proveedores){
-                    if(proveedor.getId().equalsIgnoreCase(producto.getCodigoDelProveedor())){
-                        System.out.println(Color.BLANCO_BOLD+"El proveedor "+Color.AZUL_BOLD+proveedor.getNombre()+Color.BLANCO_BOLD+" provee el producto "+Color.AMARILLO_BOLD+producto.getNombreProducto()+Color.BLANCO_BOLD+" de codigo "+Color.PURPLE_BOLD+producto.getCodigo()+Color.RESET);
+                for(Provedor provedor : proveedores){
+                    if(Integer.parseInt(provedor.getId()) == producto.getCodigoDelProveedor()){
+                        System.out.println(Color.BLANCO_BOLD+"El proveedor "+Color.AZUL_BOLD+ provedor.getNombre()+Color.BLANCO_BOLD+" provee el producto "+Color.AMARILLO_BOLD+producto.getNombreProducto()+Color.BLANCO_BOLD+" de codigo "+Color.PURPLE_BOLD+producto.getCodigo()+Color.RESET);
                     }
                     
                 }
             }  
         }
+    }
+
+    public void setCatalogo(Catalogo catalogo) {
+        this.catalogo = catalogo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 }

@@ -1,15 +1,9 @@
 package co.edu.udc.ejercicio28_lavadero.modelo.crud;
 
-import co.edu.udc.ejercicio28_lavadero.modelo.entidades.ManejoArchivos;
 import co.edu.udc.ejercicio28_lavadero.modelo.entidades.Provedor;
 import co.edu.udc.ejercicio28_lavadero.util.ConsultarData;
 import co.edu.udc.ejercicio28_lavadero.util.InsertData;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 
-import java.io.FileReader;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class ProveedorCrudl {

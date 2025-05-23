@@ -28,10 +28,25 @@ public class Principal {
     
 
     public static void main(String[] args) throws Exception {
-        ClienteCrudl crud = new ClienteCrudl();
-        for(Cliente cliente: crud.listarTodo()){
-            crud.agregar(cliente);
-        }
+        EmpleadoCrudl empleadoCrud = new EmpleadoCrudl();
+        CotizacionCrudl cotizacionCrud = new CotizacionCrudl();
+        PedidoCrudl pedidoCrud = new PedidoCrudl();
+        ClienteCrudl clienteCrud = new ClienteCrudl();
+        BodegaCrudl bodegaCrud = new BodegaCrudl();
+        ProveedorCrudl proveedorCrud = new ProveedorCrudl();
+        CatalogoCrudl catalogoCrud = new CatalogoCrudl();
+        EmpresaCrudl empresaCrud = new EmpresaCrudl();
+        ProductoCrudl productoCrud = new ProductoCrudl();
+        ServicioCrudl servicioCrudl = new ServicioCrudl();
+        CategoriaCrudl categoriaCrud = new CategoriaCrudl();
+
+        Cliente nuevoCliente = new Cliente("Jhon Arrieta",TipoID.Cedula,"73546388","Jarrieta@unicartagena.edu.co","3154512301","Manga mz 4 Cr5 #56B-44");
+        clienteCrud.agregar(nuevoCliente);
+        System.out.println("Total de clientes registrados: "+clienteCrud.contar());
+        for(Cliente cliente: clienteCrud.listarTodo()){
+            System.out.println(cliente.getNombre()+" CC: "+cliente.getIdentificacion()+" tipo de id:"+cliente.getTipoID().name());
+            System.out.println("\n "+cliente.getInfoContacto());
+        };
     }
 
     public static void categoriaMenu() throws Exception {

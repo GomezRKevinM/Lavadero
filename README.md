@@ -53,9 +53,10 @@
     - [Agregar](https://github.com/GomezRKevinM/Lavadero?tab=readme-ov-file#agregar-)
     - [Buscar](https://github.com/GomezRKevinM/Lavadero?tab=readme-ov-file#buscar-)
     - [Editar](https://github.com/GomezRKevinM/Lavadero?tab=readme-ov-file#editar-%EF%B8%8F)
-    - [Eliminar](https://github.com/GomezRKevinM/Lavadero?tab=readme-ov-file#eliminar)
-    - [Listar Todo](https://github.com/GomezRKevinM/Lavadero?tab=readme-ov-file#listar-todo-)
+    - [Eliminar](https://github.com/GomezRKevinM/Lavadero?tab=readme-ov-file#eliminar-%EF%B8%8F)
+    - [Listar Todo](https://github.com/GomezRKevinM/Lavadero?tab=readme-ov-file#listar-todo-%EF%B8%8F)
     - [Contar](https://github.com/GomezRKevinM/Lavadero?tab=readme-ov-file#contar-)
+    - [Videos]()
 
 
 - **Base de datos ![Static Badge](https://img.shields.io/badge/SQLite-database-cyan?logo=sqlite&logoColor=cyan&labelColor=black&)** 
@@ -572,6 +573,10 @@ String sql = "UPDATE usuarios SET nombre = 'Gary Castaño' WHERE id = 1";
 ```    
 
   </details>
+
+## Enlaces
+
+[Video](https://www.youtube.com/watch?v=wEfcJSNVAC8)
 
 ## Autor
 

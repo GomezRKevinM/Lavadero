@@ -494,12 +494,12 @@ public class ConsultarData {
             ResultSet rs = pstmt.executeQuery();){
             ArrayList<Cliente> listaDeClientes = new ArrayList<>();
             while (rs.next()){
-                Cliente nuevo = new Cliente(rs.getString("nombre"),TipoID.valueOf(rs.getString("tipo:id")),rs.getString("identificacion"),rs.getString("correo"),rs.getString("telefono"),rs.getString("direccion"));
+                Cliente nuevo = new Cliente(rs.getString("nombre"),TipoID.valueOf(rs.getString("tipo_id")),rs.getString("identificacion"),rs.getString("correo"),rs.getString("telefono"),rs.getString("direccion"));
                 listaDeClientes.add(nuevo);
             }
             return listaDeClientes;
         }catch (SQLException e){
-            System.out.println("Error al Seleccionar areas de trabajo: "+e.getMessage());
+            System.out.println("Error al Seleccionar Clientes de trabajo: "+e.getMessage());
         }
         throw new RuntimeException("Error: ");
     }
@@ -542,24 +542,23 @@ public class ConsultarData {
         throw new RuntimeException("Error al establecer conexión con la base de datos");
     }
 
-    public static Provedor Provedor(String id) throws Exception{
-        String sql = "SELECT * FROM provedores WHERE id = ?";
+    public static Provedor Provedor(String id) throws Exception {
+    String sql = "SELECT * FROM provedores WHERE codigo = ?";
 
-        try(Connection conn = DatabaseConexion.getConnection();
-        PreparedStatement pstmt = conn.prepareStatement(sql)){
-            pstmt.setString(1,id);
-            pstmt.executeQuery();
-            ResultSet rs = pstmt.executeQuery();
-            if(rs.next()){
-                return new Provedor(rs.getString("nombre"),rs.getString("id"));
-            }else{
-                throw new Exception("No se encontro provedor con id: "+id);
-            }
-        }catch (SQLException e){
-            System.out.println("Error al Seleccionar provedores: "+e.getMessage());
+    try (Connection conn = DatabaseConexion.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        pstmt.setString(1, id);
+        ResultSet rs = pstmt.executeQuery();
+        
+        if (rs.next()) {
+            return new Provedor(rs.getString("nombre"), rs.getString("codigo"));
+        } else {
+            throw new Exception("No se encontró proveedor con id: " + id);
         }
-        throw new Exception("Error al establecer conexión con la base de datos");
+    } catch (SQLException e) {
+        throw new Exception("Error al seleccionar proveedor: " + e.getMessage());
     }
+}
 
     public static Pedido Pedido(String id){
         String sql = "SELECT * FROM Pedidos WHERE id = ?";

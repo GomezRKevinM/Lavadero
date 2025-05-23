@@ -50,12 +50,12 @@
 ### Implementación de CRUDL
 
 - **Funciones**
-    - [Agregar](https://github.com/GomezRKevinM/Lavadero?tab=readme-ov-file#agregar)
-    - [Buscar](https://github.com/GomezRKevinM/Lavadero?tab=readme-ov-file#buscar)
-    - [Editar](https://github.com/GomezRKevinM/Lavadero?tab=readme-ov-file#editar)
+    - [Agregar](https://github.com/GomezRKevinM/Lavadero?tab=readme-ov-file#agregar-)
+    - [Buscar](https://github.com/GomezRKevinM/Lavadero?tab=readme-ov-file#buscar-)
+    - [Editar](https://github.com/GomezRKevinM/Lavadero?tab=readme-ov-file#editar-%EF%B8%8F)
     - [Eliminar](https://github.com/GomezRKevinM/Lavadero?tab=readme-ov-file#eliminar)
-    - [Listar Todo](https://github.com/GomezRKevinM/Lavadero?tab=readme-ov-file#listar-todo)
-    - [Contar](https://github.com/GomezRKevinM/Lavadero?tab=readme-ov-file#contar)
+    - [Listar Todo](https://github.com/GomezRKevinM/Lavadero?tab=readme-ov-file#listar-todo-)
+    - [Contar](https://github.com/GomezRKevinM/Lavadero?tab=readme-ov-file#contar-)
 
 
 - **Base de datos ![Static Badge](https://img.shields.io/badge/SQLite-database-cyan?logo=sqlite&logoColor=cyan&labelColor=black&)** 
@@ -242,6 +242,7 @@ Se pueden usar ambos casos en cualquiera de las clases crudl.
 ```
 </details>
 ---
+
 ## Eliminar ⛓️‍💥
   `Eliminar` valida que la instancia del objeto exista, si esta existe entonces será eliminada, de lo contrario retornará un error. \
   **Clase empleada** [![Static Badge](https://img.shields.io/badge/DeleteData-ver-cyan?logo=c&logoColor=cyan&labelColor=black&)](https://github.com/GomezRKevinM/Lavadero?tab=readme-ov-file#update-data)
@@ -265,6 +266,7 @@ Se pueden usar ambos casos en cualquiera de las clases crudl.
 
 </details>
 ---
+
 ## Listar todo 🗂️
 
    

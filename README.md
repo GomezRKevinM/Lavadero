@@ -56,7 +56,7 @@
     - [Eliminar](https://github.com/GomezRKevinM/Lavadero?tab=readme-ov-file#eliminar-%EF%B8%8F)
     - [Listar Todo](https://github.com/GomezRKevinM/Lavadero?tab=readme-ov-file#listar-todo-%EF%B8%8F)
     - [Contar](https://github.com/GomezRKevinM/Lavadero?tab=readme-ov-file#contar-)
-    - [Videos]()
+    - [Videos](https://www.youtube.com/watch?v=wEfcJSNVAC8)
 
 
 - **Base de datos ![Static Badge](https://img.shields.io/badge/SQLite-database-cyan?logo=sqlite&logoColor=cyan&labelColor=black&)** 

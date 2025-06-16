@@ -7,6 +7,8 @@
 - [Requisitos funcionales principales](https://github.com/GomezRKevinM/Lavadero?tab=readme-ov-file#requisitos-funcionales-principales)
 - [Dependencias](https://github.com/GomezRKevinM/Lavadero?tab=readme-ov-file#dependencias)
 - [Fase 2](https://github.com/GomezRKevinM/Lavadero?tab=readme-ov-file#fase-2)
+- [Fase 3](https://github.com/GomezRKevinM/Lavadero/blob/master/README.md#fase-3)
+
 ## Descripción
 
 **Ejercicio28_Lavadero** es un sistema de gestión para una compáñia con multiples mini empresas entre ellas el servicio de lavadero de automóviles, desarrollado como ejercicio académico para la asignatura de Ingeniería del Software. El sistema permite administrar clientes, empleados, vehículos, productos, servicios, proveedores, bodegas, áreas de trabajo, contratos y documentos comerciales, facilitando la operación integral de un lavadero.

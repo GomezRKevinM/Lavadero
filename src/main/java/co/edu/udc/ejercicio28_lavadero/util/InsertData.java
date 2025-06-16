@@ -1,6 +1,8 @@
 package co.edu.udc.ejercicio28_lavadero.util;
 
 import co.edu.udc.ejercicio28_lavadero.Color;
+import co.edu.udc.ejercicio28_lavadero.modelo.entidades.Categoria;
+import co.edu.udc.ejercicio28_lavadero.modelo.entidades.Servicio;
 import co.edu.udc.ejercicio28_lavadero.modelo.entidades.TipoID;
 
 import java.sql.Connection;
@@ -25,13 +27,12 @@ public class InsertData {
         }
     }
 
-    public static void Categoria(String name, String icon){
+    public static void Categoria(Categoria categoria){
         String sql = "INSERT INTO categorias (nombre,icono) VALUES (?,?)";
-
         try(Connection conn = DatabaseConexion.getConnection();
         PreparedStatement pstmt = conn.prepareStatement(sql)){
-            pstmt.setString(1, name);
-            pstmt.setString(2, icon);
+            pstmt.setString(1, categoria.getNombre());
+            pstmt.setString(2, categoria.getIcono());
             pstmt.executeUpdate();
             System.out.println("Categoria insertada exitosamente");
         }catch(SQLException e){
@@ -65,9 +66,8 @@ public class InsertData {
         }
     }
 
-    public static void Producto(String nombreProducto,String marca,int categoria, double precio, double precioDeCompra, int stock, int alerta, int codigoDelProveedor){
-        String sql = "INSERT INTO Productos (nombre_producto,marca,categoria,precio,stock,precio_de_compra,alerta,codigo_provedor) VALUES (?,?,?,?,?,?,?,?)";
-
+    public static void Producto(String nombreProducto,String marca,int categoria, double precio, double precioDeCompra, int stock, int alerta, int codigoDelProveedor,String img){
+        String sql = "INSERT INTO Productos (nombre_producto,marca,categoria,precio,stock,precio_de_compra,alerta,codigo_provedor,img) VALUES (?,?,?,?,?,?,?,?,?)";
         try(Connection conn = DatabaseConexion.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql)){
             pstmt.setString(1, nombreProducto);
@@ -78,10 +78,31 @@ public class InsertData {
             pstmt.setDouble(6, precioDeCompra);
             pstmt.setInt(7, alerta);
             pstmt.setInt(8, codigoDelProveedor);
+            pstmt.setString(9, img);
             pstmt.executeUpdate();
             System.out.println("Producto insertado exitosamente");
         }catch (SQLException e){
             System.out.println("Error al insertar producto: "+e.getMessage());
+        }
+    }
+
+    public static void Servicio(Servicio nuevoservicio){
+        String sql = "INSERT INTO Servicios(nombre,descripcion,precio,imagen,disponibilidad,categoria,funcionarios) values (?,?,?,?,?,?,?)";
+
+        try(Connection conn = DatabaseConexion.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setString(1, nuevoservicio.getNombre());
+            pstmt.setString(2, nuevoservicio.getDescripcion());
+            pstmt.setDouble(3, nuevoservicio.getPrecioDeVenta());
+            pstmt.setString(4, nuevoservicio.getImagen());
+            pstmt.setBoolean(5, nuevoservicio.getDisponibilidad());
+            pstmt.setInt(6,Integer.parseInt(nuevoservicio.getCategoria().getCodigo()));
+            pstmt.setObject(7,nuevoservicio.getFuncionariosJSON());
+
+            pstmt.executeUpdate();
+            System.out.println("Servicio "+nuevoservicio.getNombre()+" agregado exitosamente");
+        }catch (SQLException e){
+            throw new RuntimeException(e);
         }
     }
 

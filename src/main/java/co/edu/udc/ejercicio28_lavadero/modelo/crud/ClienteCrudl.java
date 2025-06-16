@@ -23,7 +23,7 @@ public class ClienteCrudl {
         InsertData.Cliente(cliente.getNombre(),cliente.getTipoID().name(), cliente.getIdentificacion(), cliente.getCorreo(),cliente.getTelefono(),cliente.getDireccion());
     }
 
-    public Cliente buscar(String identificacion) throws Exception {
+    public ArrayList<Cliente> buscar(String identificacion) throws Exception {
         try{
             return ConsultarData.Cliente(identificacion);
         }catch (Exception e){

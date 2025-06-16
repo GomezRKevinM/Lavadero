@@ -6,19 +6,19 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class Servicio {
-    String codigo;
+    int codigo;
     String nombre;
     String descripcion;
     double precioDeVenta;
-    List<Empleado> funcionarios;
+    ArrayList<Empleado> funcionarios;
     String imagen;
     boolean disponibilidad;
     Categoria categoria;
 
-    public Servicio(String codigo, String nombre, String descripcion, double precioDeVenta, String imagen, boolean disponibilidad, Categoria categoria) {
+    public Servicio(int codigo, String nombre, String descripcion, double precioDeVenta, String imagen, boolean disponibilidad, Categoria categoria) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -26,6 +26,10 @@ public class Servicio {
         this.imagen = imagen;
         this.disponibilidad = disponibilidad;
         this.categoria = categoria;
+    }
+
+    public Boolean getDisponibilidad(){
+        return disponibilidad;
     }
 
     public String getFuncionariosJSON(){
@@ -39,7 +43,7 @@ public class Servicio {
         return gson.fromJson(funcionariosJSON, token);
     }
 
-    public String getCodigo() {
+    public int getCodigo() {
         return codigo;
     }
 
@@ -67,11 +71,11 @@ public class Servicio {
         this.precioDeVenta = precioDeVenta;
     }
 
-    public List<Empleado> getFuncionario() {
+    public ArrayList<Empleado> getFuncionario() {
         return funcionarios;
     }
 
-    public void setFuncionario(List<Empleado> funcionarios) {
+    public void setFuncionario(ArrayList<Empleado> funcionarios) {
         this.funcionarios = funcionarios;
     }
 

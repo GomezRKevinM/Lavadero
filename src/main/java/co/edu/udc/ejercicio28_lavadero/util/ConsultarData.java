@@ -1,6 +1,7 @@
 package co.edu.udc.ejercicio28_lavadero.util;
 
 import co.edu.udc.ejercicio28_lavadero.Color;
+import co.edu.udc.ejercicio28_lavadero.modelo.crud.CategoriaCrudl;
 import co.edu.udc.ejercicio28_lavadero.modelo.crud.ProductoCrudl;
 import co.edu.udc.ejercicio28_lavadero.modelo.entidades.*;
 import com.google.gson.Gson;
@@ -10,6 +11,8 @@ import com.google.gson.GsonBuilder;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class ConsultarData {
     public static void main(String[] args) {
@@ -28,7 +31,7 @@ public class ConsultarData {
     }
 
     public static ArrayList<Categoria> Categorias(){
-        String sql = "SELECT * FROM categorias";
+        String sql = "SELECT * FROM categorias ORDER BY nombre DESC ";
 
         try(Connection conn = DatabaseConexion.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -62,6 +65,23 @@ public class ConsultarData {
             }
         }catch (SQLException e){
             throw new RuntimeException("Error al consultar datos");
+        }
+    }
+
+    public static int CategoriaItems(String codigo) throws SQLException {
+        String sql = "SELECT COUNT(*) AS 'cantidad' FROM Categorias C LEFT JOIN Productos P ON C.codigo = P.categoria LEFT JOIN Servicios S ON C.codigo = S.categoria WHERE C.codigo = ? AND (p.codigo not null OR S.codigo not null )";
+
+        try(Connection conn = DatabaseConexion.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql);){
+            pstmt.setString(1, codigo);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("cantidad");
+            } else {
+                throw new RuntimeException("No se encontro categoria con codigo: " + codigo);
+            }
+        }catch (SQLException e){
+            throw new SQLException("Error al consultar datos");
         }
     }
 
@@ -124,7 +144,7 @@ public class ConsultarData {
     }
 
     public static ArrayList<Producto> Productos(){
-        String sql = "SELECT * FROM Productos";
+        String sql = "SELECT * FROM Productos ORDER BY nombre_producto DESC";
 
         try(Connection conn = DatabaseConexion.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -134,6 +154,7 @@ public class ConsultarData {
 
             while (rs.next()){
                 Producto nuevo = new Producto(rs.getString("nombre_producto"),rs.getString("marca"),rs.getInt("categoria"),rs.getString("codigo"),rs.getDouble("precio"), rs.getDouble("precio_de_compra"),rs.getInt("stock"),rs.getInt("alerta"),rs.getInt("codigo_provedor"));
+                nuevo.setImg(rs.getString("img"));
                 productos.add(nuevo);
             }
             return productos;
@@ -144,6 +165,43 @@ public class ConsultarData {
         throw new RuntimeException("Error al Seleccionar productos");
     }
 
+    public static ArrayList<Producto> ProductosSearch(String busqueda){
+        String sql = "SELECT * FROM Productos WHERE nombre_producto LIKE '"+busqueda+"%' OR codigo LIKE '"+busqueda+"' ORDER BY nombre_producto DESC";
+
+        try(Connection conn = DatabaseConexion.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            ResultSet rs = pstmt.executeQuery();){
+
+            ArrayList<Producto> productos = new ArrayList<>();
+
+            while (rs.next()){
+                Producto nuevo = new Producto(rs.getString("nombre_producto"),rs.getString("marca"),rs.getInt("categoria"),rs.getString("codigo"),rs.getDouble("precio"), rs.getDouble("precio_de_compra"),rs.getInt("stock"),rs.getInt("alerta"),rs.getInt("codigo_provedor"));
+                nuevo.setImg(rs.getString("img"));
+                productos.add(nuevo);
+            }
+            return productos;
+
+        }catch (SQLException e){
+            System.out.println("Error al Seleccionar productos: "+e.getMessage());
+        }
+        throw new RuntimeException("Error al Seleccionar productos");
+    }
+
+    public static String search(String tabla,String campos[],String busqueda){
+        String sql = "SELECT * FROM "+tabla+" WHERE ";
+        String sentencias = Arrays.stream(campos).map(","::concat).collect(Collectors.joining());
+
+        try(Connection conn = DatabaseConexion.getConnection();
+        PreparedStatement pstmt = conn.prepareStatement(sql)){
+            ResultSet rs = pstmt.executeQuery();
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            String json = gson.toJson(rs);
+            return json;
+        }catch (SQLException e){
+            throw new RuntimeException("Error al Seleccionar productos: "+e.getMessage());
+        }
+    }
+
     public static Producto Producto(String codigo){
         String sql = "SELECT * FROM Productos WHERE codigo = ?";
 
@@ -152,7 +210,9 @@ public class ConsultarData {
             pstmt.setString(1,codigo);
             ResultSet rs = pstmt.executeQuery();
             if(rs.next()){
-                return new Producto(rs.getString("nombre_producto"),rs.getString("marca"),rs.getInt("categoria"),rs.getString("codigo"),rs.getDouble("precio"), rs.getDouble("precio_de_compra"),rs.getInt("stock"),rs.getInt("alerta"),rs.getInt("codigo_provedor"));
+                Producto nuevo = new Producto(rs.getString("nombre_producto"),rs.getString("marca"),rs.getInt("categoria"),rs.getString("codigo"),rs.getDouble("precio"), rs.getDouble("precio_de_compra"),rs.getInt("stock"),rs.getInt("alerta"),rs.getInt("codigo_provedor"));
+                nuevo.setImg(rs.getString("img"));
+                return nuevo;
             }else{
                 throw new RuntimeException("No se encontro producto con codigo: "+codigo);
             }
@@ -160,6 +220,54 @@ public class ConsultarData {
             System.out.println("Error al Seleccionar producto: "+e.getMessage());
         }
         throw new RuntimeException("Error al Seleccionar producto");
+    }
+
+    public static ArrayList<Servicio> Servicio(String codigo) throws SQLException {
+        String sql = "SELECT * FROM Servicios WHERE  nombre LIKE '%"+codigo+"%' or codigo = '"+codigo+"' ORDER BY nombre DESC";
+
+        try(Connection conn = DatabaseConexion.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            ResultSet rs = pstmt.executeQuery()){
+
+            ArrayList<Servicio> servicios = new ArrayList<>();
+
+            while (rs.next()){
+                CategoriaCrudl crud = new CategoriaCrudl();
+                Categoria categoria = crud.buscar(rs.getInt("categoria"));
+                Servicio encontrado = new Servicio(rs.getInt("codigo"),rs.getString("nombre"),rs.getString("descripcion"),rs.getDouble("precio"),rs.getString("imagen"),rs.getBoolean("disponibilidad"),categoria);
+                encontrado.getFuncionariosArray(rs.getString("funcionarios"));
+                servicios.add(encontrado);
+            }
+
+
+            return servicios;
+        }catch (SQLException e){
+            throw new SQLException("error: "+e.getMessage());
+        }
+    }
+
+    public static ArrayList<Servicio> Servicios() throws SQLException {
+        String sql = "SELECT * FROM Servicios ORDER BY nombre DESC";
+
+        try(Connection conn = DatabaseConexion.getConnection();
+        PreparedStatement pstmt =  conn.prepareStatement(sql);
+        ResultSet rs = pstmt.executeQuery();){
+
+            ArrayList<Servicio> servicios = new ArrayList<>();
+
+            CategoriaCrudl crud = new CategoriaCrudl();
+
+            while(rs.next()){
+                Categoria categoria = crud.buscar(rs.getInt("categoria"));
+                Servicio nuevo = new Servicio(rs.getInt("codigo"),rs.getString("nombre"),rs.getString("descripcion"),rs.getDouble("precio"),rs.getString("imagen"),rs.getBoolean("disponibilidad"),categoria);
+                nuevo.getFuncionariosArray(rs.getString("funcionarios"));
+                servicios.add(nuevo);
+            }
+
+            return servicios;
+        }catch (SQLException e){
+            throw  new SQLException("Error: "+e.getMessage());
+        }
     }
 
     public static ArrayList<InformacionPago> InformacionDePagos(){
@@ -504,18 +612,19 @@ public class ConsultarData {
         throw new RuntimeException("Error: ");
     }
 
-    public static Cliente Cliente(String identificacion){
-        String sql = "SELECT * FROM Clientes WHERE identificacion = ?";
-
+    public static ArrayList<Cliente> Cliente(String busqueda){
+        String sql = "SELECT * FROM Clientes WHERE nombre LIKE '%"+busqueda+"%' OR identificacion = '"+busqueda+"'";
         try(Connection conn = DatabaseConexion.getConnection();
-            PreparedStatement pstmt = conn.prepareStatement(sql);){
-            pstmt.setString(1,identificacion);
-            ResultSet rs = pstmt.executeQuery();
-            if(rs.next()){
-                return new Cliente(rs.getString("nombre"),TipoID.valueOf(rs.getString("tipo:id")),rs.getString("identificacion"),rs.getString("correo"),rs.getString("telefono"),rs.getString("direccion"));
-            }else{
-                throw new RuntimeException(Color.ROJO_BOLD+"No se encontro cliente con identificacion: "+Color.PURPLE_BOLD+identificacion);
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            ResultSet rs = pstmt.executeQuery();){
+
+            ArrayList<Cliente> listaDeClientes = new ArrayList<>();
+            while (rs.next()){
+                Cliente encontrado = new Cliente(rs.getString("nombre"),TipoID.valueOf(rs.getString("tipo_id")),rs.getString("identificacion"),rs.getString("correo"),rs.getString("telefono"),rs.getString("direccion"));
+                listaDeClientes.add(encontrado);
             }
+
+            return listaDeClientes;
 
         }catch (SQLException e){
             System.out.println("Error al Seleccionar cliente: "+e.getMessage());
@@ -532,7 +641,7 @@ public class ConsultarData {
             ResultSet rs = pstmt.executeQuery(); ){
             ArrayList<Provedor> listaDeProvedores = new ArrayList<>();
             while (rs.next()){
-                Provedor nuevo = new Provedor(rs.getString("nombre"),rs.getString("id"));
+                Provedor nuevo = new Provedor(rs.getString("nombre"),rs.getString("codigo"));
                 listaDeProvedores.add(nuevo);
             }
             return listaDeProvedores;

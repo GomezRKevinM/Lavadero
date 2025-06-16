@@ -3,6 +3,7 @@ package co.edu.udc.ejercicio28_lavadero.modelo.entidades;
 public class Producto {
 
     private String codigo;
+    private String img;
     private String nombreProducto;
     private int Categoria;
     private double precio;
@@ -24,6 +25,14 @@ public class Producto {
         this.codigoDelProveedor = codigoDelProveedor;
         this.stock = stock;
         disponibilidad = stock > 0;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 
     public double getPrecioDeCompra() {

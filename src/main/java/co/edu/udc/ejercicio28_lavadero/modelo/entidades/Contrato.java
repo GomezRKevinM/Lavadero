@@ -15,7 +15,7 @@ public class Contrato {
     String ContratadoCC;
     String ContratanteID;
     String horario;
-    List<String> clausulas;
+    ArrayList<String> clausulas;
     Cargo cargo;
 
     public Contrato(String id,String FechaInicio, double SueldoBase, Cargo cargo,String FechaFinal, String horario){
@@ -34,7 +34,7 @@ public class Contrato {
         FechaFinal = "2021-12-10";
         SueldoBase = 0;
         ContratadoCC = "1001973042";
-        ContratanteID = "";
+        ContratanteID = "1";
         horario = "7am a 5pm";
         clausulas = new ArrayList<>();
         cargo = Cargo.Tecnico;
@@ -85,7 +85,7 @@ public class Contrato {
     }
 
     public void setSueldoBase(double sueldoBase) {
-        SueldoBase = sueldoBase;
+        this.SueldoBase = sueldoBase;
     }
 
     public String getContratado() {
@@ -112,11 +112,11 @@ public class Contrato {
         this.horario = horario;
     }
 
-    public List<String> getClausulas() {
+    public ArrayList<String> getClausulas() {
         return clausulas;
     }
 
-    public void setClausulas(List<String> clausulas) {
+    public void setClausulas(ArrayList<String> clausulas) {
         this.clausulas = clausulas;
     }
 

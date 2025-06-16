@@ -574,9 +574,82 @@ String sql = "UPDATE usuarios SET nombre = 'Gary Castaño' WHERE id = 1";
 
   </details>
 
+# Fase 3
+
+## Implementación de CRUDL con componentes gráficos
+
+En esta fase, la aplicación evoluciona a una interfaz gráfica de usuario (GUI) completa, utilizando **Swing** como framework principal para la construcción de interfaces en Java. Se optó por Swing por su integración nativa, flexibilidad y facilidad para personalizar componentes, además de su amplia documentación y soporte en proyectos educativos y empresariales.
+
+### Componentes Gráficos Utilizados
+
+- **JFrame**: Ventana principal de la aplicación (`Ventana`). Permite contener y gestionar el resto de paneles y menús.
+- **JPanel**: Usado como contenedor principal para cada módulo funcional (clientes, empleados, servicios, catálogo, etc.), y para organizar subcomponentes dentro de cada vista.
+- **JMenuBar y JMenuItem**: Barra de menú superior para la navegación entre los diferentes módulos de la aplicación.
+- **JScrollPane**: Permite el desplazamiento vertical/horizontal en listados extensos (por ejemplo, listas de clientes, empleados, productos, etc.).
+- **JButton**: Botones de acción para CRUD (Agregar, Modificar, Eliminar, Buscar, etc.).
+- **JLabel**: Etiquetas para títulos, campos y mensajes informativos.
+- **Input (componente personalizado)**: Campos de entrada de texto. Se utiliza la clase personalizada `Input` para mantener consistencia visual y funcional en los formularios.
+- **JComboBox**: Selector desplegable para campos con opciones fijas (por ejemplo, tipo de identificación, cargo, etc.).
+- **JDialog**: Diálogos modales para formularios de alta/modificación, asegurando que el usuario complete o cancele la acción antes de volver a la ventana principal.
+- **Componentes personalizados**:
+  - `Input`: Mejora la experiencia de usuario en los formularios, encapsulando validaciones y estilos.
+  - `LabelValue`: Facilita la presentación de pares etiqueta-valor en los detalles y formularios.
+  - `IconDetail`: Muestra iconos y contadores en la pantalla de inicio para acceso rápido a los módulos.
+  - `InputIcon`: Campo de texto con icono integrado, usado para búsquedas y entradas visualmente atractivas.
+  - `Boton`: Botón estilizado reutilizable en formularios y acciones principales.
+  - `BotonModerno`: Botón personalizado con estilos modernos, usado para destacar acciones o listados.
+  - `ComboItem`: Wrapper para mostrar objetos personalizados en JComboBox, permitiendo mostrar texto y asociar valores.
+  - `MenuItem`: Ítem de menú personalizado, usado para mejorar la navegación y la experiencia visual en la barra de menú.
+
+### Estructura de Clases y Flujo de Ejecución
+
+#### 1. Ventana (JFrame principal)
+- Inicializa el menú y el panel de contenido principal (`panelContenido`), que utiliza un `CardLayout` para alternar entre los diferentes módulos.
+- Instancia y agrega los paneles de cada módulo: `VentanaCliente`, `VentanaEmpleado`, `VentanaServicio`, `VentanaCatalogo`, etc.
+- El menú superior permite cambiar entre vistas, mostrando el panel correspondiente en el `CardLayout`.
+
+#### 2. Ventanas de Módulo (JPanel)
+Cada módulo (clientes, empleados, servicios, catálogo, etc.) sigue una estructura similar:
+- Un título destacado.
+- Un panel de búsqueda para filtrar registros.
+- Un listado de registros (dentro de un `JScrollPane`).
+- Botones de acción para agregar, modificar o eliminar registros.
+- Al agregar o modificar, se abre un `JDialog` modal con un formulario construido con `Input`, `JComboBox` y otros componentes, garantizando la validación y la experiencia de usuario.
+
+#### 3. Formularios y Detalles
+- Los formularios de alta y edición usan siempre un `JDialog` modal, nunca un `JOptionPane`, para mayor control y personalización.
+- Los campos de entrada usan la clase `Input` para mantener la coherencia visual y facilitar validaciones.
+- Los detalles de cada entidad se muestran en diálogos informativos, usando `LabelValue` para claridad.
+
+#### 4. Integración y Flujo de Ejecución
+
+1. **Inicio de la aplicación**:
+   - Se ejecuta la clase `Ventana`, que muestra la pantalla principal y el menú.
+2. **Navegación**:
+   - El usuario selecciona un módulo desde el menú o desde los iconos de la pantalla de inicio.
+   - El `CardLayout` muestra el panel correspondiente.
+3. **Operaciones CRUDL**:
+   - El usuario puede buscar, agregar, modificar o eliminar registros.
+   - Al agregar o modificar, se abre un `JDialog` con el formulario correspondiente.
+   - Los datos se validan y se guardan usando las clases CRUDL de la capa de modelo.
+   - El listado se actualiza automáticamente tras cada operación.
+4. **Consistencia y experiencia**:
+   - Todos los formularios y listados mantienen el mismo estilo y comportamiento, gracias a los componentes personalizados y la estructura modular.
+
+### Ejemplo de Integración
+
+- Al hacer clic en "Empleados" en el menú, se muestra el panel de empleados (`VentanaEmpleado`).
+- El usuario puede buscar empleados, ver detalles, o hacer clic en "Agregar Empleado".
+- Se abre un `JDialog` con el formulario, usando `Input` y `JComboBox` para los campos.
+- Al guardar, se crea el empleado y su contrato, y el listado se actualiza.
+
+---
+
 ## Enlaces
 
-[Video](https://www.youtube.com/watch?v=wEfcJSNVAC8)
+[Video fase 2](https://www.youtube.com/watch?v=wEfcJSNVAC8)
+
+[Video fase 3](https://www.youtube.com/watch?v=8b1k2g4j5eY)
 
 ## Autor
 

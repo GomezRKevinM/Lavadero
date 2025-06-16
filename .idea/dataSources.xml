@@ -2,7 +2,7 @@
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
     <data-source source="LOCAL" name="lavadero" uuid="c26a8221-19d1-414f-9054-0e55c7ca68f8">
-      <driver-ref>sqlite.xerial</driver-ref>
+      <driver-ref>8bf7a7c7-e787-4f1c-b502-bd5218d4a30b</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:C:\Users\Songu\Dropbox\Java-Projects\Ejercicio28_Lavadero\lavadero.db</jdbc-url>

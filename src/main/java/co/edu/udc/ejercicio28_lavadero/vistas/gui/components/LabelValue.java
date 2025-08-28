@@ -21,9 +21,11 @@ public class LabelValue extends JPanel {
         value.setForeground(colorValue);
 
         add(label);
-        add(Box.createRigidArea(new Dimension(10, 0)));
-        add(value);
-        setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        if(!valor.isEmpty()) {
+            add(Box.createRigidArea(new Dimension(10, 0)));
+            add(value);
+            setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        }
     }
 
     public JLabel getLabel() {

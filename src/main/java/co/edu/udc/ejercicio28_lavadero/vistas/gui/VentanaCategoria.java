@@ -72,7 +72,7 @@ public class VentanaCategoria extends JPanel implements ActionListener {
         botonAgregar.addActionListener(this);
         btnContent.add(botonAgregar);
         btnContent.add(Box.createHorizontalStrut(10));
-        InputIcon buscar = new InputIcon(Ventana.redimensionarImagen("src/main/resources/images/icons/lupa.png",50,50),"Buscar Categoria");
+        InputIcon buscar = new InputIcon(Ventana.redimensionarImagen("src/main/resources/images/icons/lupa.png",30,30),"Buscar Categoria");
         btnContent.add(buscar);
 
         buscar.getTextField().addKeyListener(new KeyListener() {

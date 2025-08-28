@@ -70,7 +70,7 @@ public class VentanaServicio extends JPanel implements ActionListener {
         panelContenido.add(titulo, BorderLayout.NORTH);
 
         InputIcon buscador = new InputIcon(
-                Ventana.redimensionarImagen("src/main/resources/images/icons/lupa.png",50,50),
+                Ventana.redimensionarImagen("src/main/resources/images/icons/lupa.png",30,30),
                 "Buscar Servicio"
         );
         buscador.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -301,7 +301,6 @@ public class VentanaServicio extends JPanel implements ActionListener {
                     modal.setIconImage(new ImageIcon("src/main/resources/images/servicios/"+imagen).getImage());
                     modal.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
-                    JLabel ImagenLateral = new JLabel(Ventana.redimensionarImagen("src/main/resources/images/servicios/"+imagen, 64, 64));
                     JPanel informacion = new JPanel();
                     informacion.setLayout(new BoxLayout(informacion, BoxLayout.Y_AXIS) );
 
@@ -317,6 +316,8 @@ public class VentanaServicio extends JPanel implements ActionListener {
 
                     LabelValue categoria = new LabelValue("Categoria: ", service.getCategoria().getNombre());
                     categoria.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 0));
+
+                    JLabel ImagenLateral = new JLabel(Ventana.redimensionarImagen("src/main/resources/images/servicios/"+imagen, 64, 64));
 
                     LabelValue empleados = new LabelValue("Funcionarios: ",service.getFuncionario()!=null?service.getFuncionario().stream().map(Empleado::getNombre).collect(Collectors.joining(", ")): "No asignados");
                     empleados.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 0));
@@ -338,19 +339,24 @@ public class VentanaServicio extends JPanel implements ActionListener {
                     informacion.add(empleados);
 
                     modificar.addActionListener(e1 -> {
-                        nombre.setValue(new JLabel(""));
+                        modal.setSize(650, 430);
+                        nombre.getValue().setVisible(false);
                         Input nombreInput = new Input(service.getNombre());
+                        nombreInput.setPreferredSize(new Dimension(250, 30));
                         nombre.add(nombreInput);
 
-                        precio.setValue(new JLabel(""));
+                        precio.getValue().setVisible(false);
                         Input precioInput = new Input(Principal.convertirDivisa(service.getPrecioDeVenta()));
+                        precioInput.setPreferredSize(new Dimension(150, 30));
                         precio.add(precioInput);
 
-                        descripcion.setValue(new JLabel(""));
-                        Input descripcionInput = new Input(service.getDescripcion());
+                        descripcion.getValue().setVisible(false);
+                        JTextArea descripcionInput = new JTextArea(service.getDescripcion());
+                        descripcionInput.setPreferredSize(new Dimension(300, 80));
+                        descripcionInput.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
                         descripcion.add(descripcionInput);
 
-                        categoria.setValue(new JLabel(""));
+                        categoria.getValue().setVisible(false);
                         JComboBox<ComboItem> categoriaSelected = new JComboBox<>();
                         for(Categoria cat: new CategoriaCrudl().listarTodo() ){
                             ComboItem Categoria = new ComboItem(cat.getNombre(),Integer.parseInt(cat.getCodigo()));
@@ -358,7 +364,7 @@ public class VentanaServicio extends JPanel implements ActionListener {
                         }
                         categoria.add(categoriaSelected);
 
-                        empleados.setValue(new JLabel(""));
+                        empleados.getValue().setVisible(false);
                         Boton asignar = new Boton("modificar","Asignar Funcionario");
                         asignar.addActionListener(e2 -> {
 
@@ -381,6 +387,26 @@ public class VentanaServicio extends JPanel implements ActionListener {
                             }
                             modal.dispose();
                         });
+                        guardar.addActionListener(guardadndo -> {
+                            try{
+                                modal.dispose();
+                                service.setImagen(imagen);
+                                service.setNombre(nombreInput.getText());
+                                CategoriaCrudl categoriaCrudl = new CategoriaCrudl();
+                                ComboItem categoriaSeleccionada = (ComboItem) categoriaSelected.getSelectedItem();
+                                Categoria newCate = categoriaCrudl.buscar(categoriaSeleccionada.getCodigo());
+                                service.setCategoria(newCate);
+                                service.setPrecioDeVenta(Double.parseDouble(precioInput.getText().replaceAll("[^0-9]","")));
+                                crud.editar(service);
+                                modal.dispose();
+                                cargarServicios();
+                            }catch (Exception error){
+                                modal.dispose();
+                                System.out.println(service.toString());
+                                System.out.println("Error al modificar: "+error.getMessage());
+                                JOptionPane.showMessageDialog(null, error.getMessage());
+                            }
+                        });
                         botones.add(guardar);
                         botones.add(cancelar);
                         modal.repaint();
@@ -389,10 +415,18 @@ public class VentanaServicio extends JPanel implements ActionListener {
                     });
                     eliminar.addActionListener(e1 -> {
                         try{
+                            int response = JOptionPane.showConfirmDialog(modal,"Desea eliminar el servicio "+service.getNombre()+" ?");
+                            if(response == 0){
+                                System.out.println("Respondio que si");
+                                crud.eliminar(service.getCodigo());
+                                modal.dispose();
+                            }else{
+                                System.out.println("Respondio que no");
+                            }
                             if(imagen != null && !imagen.equals("services.png")){
                                 Files.deleteIfExists(Path.of("src/main/resources/images/servicios/"+imagen));
                             }
-                            crud.eliminar(service.getCodigo());
+                            cargarServicios();
                         }catch (SQLException error){
                             JOptionPane.showMessageDialog(null, "Error al eliminar el servicio");
                         }catch (IOException error){

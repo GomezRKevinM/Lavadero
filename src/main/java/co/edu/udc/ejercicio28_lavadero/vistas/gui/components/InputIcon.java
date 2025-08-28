@@ -3,6 +3,8 @@ package co.edu.udc.ejercicio28_lavadero.vistas.gui.components;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -62,6 +64,26 @@ public class InputIcon extends JPanel {
                     textField.setForeground(Color.LIGHT_GRAY);
                     textField.transferFocusBackward();
                 }
+            }
+        });
+        textField.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if(e.getKeyChar() == KeyEvent.VK_DELETE && textField.getText().isEmpty()){
+                    textField.setText(prompt);
+                    textField.setForeground(Color.LIGHT_GRAY);
+                    textField.transferFocusBackward();
+                }
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
             }
         });
 

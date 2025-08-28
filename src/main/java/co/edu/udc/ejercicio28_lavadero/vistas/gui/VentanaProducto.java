@@ -8,6 +8,7 @@ import co.edu.udc.ejercicio28_lavadero.modelo.entidades.Categoria;
 import co.edu.udc.ejercicio28_lavadero.modelo.entidades.Producto;
 import co.edu.udc.ejercicio28_lavadero.modelo.entidades.Provedor;
 import co.edu.udc.ejercicio28_lavadero.vistas.gui.components.*;
+import org.intellij.lang.annotations.JdkConstants;
 
 
 import javax.swing.*;
@@ -71,11 +72,11 @@ public class VentanaProducto extends JPanel implements ActionListener{
 
         botonAgregar.addActionListener(e -> {
             JDialog dialog = new JDialog(ventanaPrincipal, "Agregar Producto", true);
-            dialog.setSize(1280, 450);
+            dialog.setSize(1330, 450);
             dialog.setLocationRelativeTo(null);
             dialog.setLayout(new BorderLayout(10, 10));
             try {
-                dialog.add(getPanelAgregar(), BorderLayout.CENTER);
+                dialog.add(getPanelAgregar(dialog), BorderLayout.CENTER);
                 dialog.setResizable(true);
                 dialog.setVisible(true);
             } catch (Exception ex) {
@@ -84,7 +85,7 @@ public class VentanaProducto extends JPanel implements ActionListener{
             }
         });
 
-        InputIcon buscador = new InputIcon(Ventana.redimensionarImagen("src/main/resources/images/icons/lupa.png",20,20),"Buscar Producto");
+        InputIcon buscador = new InputIcon(Ventana.redimensionarImagen("src/main/resources/images/icons/lupa.png",30,30),"Buscar Producto");
         buscador.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         buscador.getTextField().setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
@@ -108,7 +109,7 @@ public class VentanaProducto extends JPanel implements ActionListener{
             @Override
             public void keyPressed(KeyEvent e) {
                 if(KeyEvent.VK_ENTER==e.getKeyCode()){
-                    System.out.println("Enter");
+
                     panelBotones.removeAll();
                     int productos = crud.buscarProductos(buscador.getTextField().getText()).size();
                     if(productos>0) {
@@ -246,7 +247,7 @@ public class VentanaProducto extends JPanel implements ActionListener{
         this.btnSearch = btnSearch;
     }
 
-    public JPanel getPanelAgregar() throws Exception{
+    public JPanel getPanelAgregar(JDialog modal) throws Exception{
         CategoriaCrudl crud = new CategoriaCrudl();
         ProveedorCrudl pcrud = new ProveedorCrudl();
         ProductoCrudl crudProducto = new ProductoCrudl();
@@ -257,39 +258,59 @@ public class VentanaProducto extends JPanel implements ActionListener{
         JPanel linea2 = new JPanel(new FlowLayout(FlowLayout.CENTER));
         JPanel linea3 = new JPanel(new FlowLayout(FlowLayout.CENTER));
         JPanel linea4 = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        linea1.setSize(400, 50);
-        linea2.setSize(400, 50);
-        linea3.setSize(400, 50);
+        linea1.setSize(600, 50);
+        linea2.setSize(600, 50);
+        linea3.setSize(600, 50);
         panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE));
         panel.setMinimumSize(new Dimension(200, 200));
         panel.setPreferredSize(new Dimension(200, 200));
 
-        JLabel titulo = new JLabel("➕ Agregar Producto",SwingConstants.CENTER);
+        Font general = new Font("Cascadia Code PL", Font.BOLD, 16);
+        JLabel titulo = new JLabel("Agregar Producto",SwingConstants.CENTER);
         titulo.setForeground(new Color(0x1AA6C6));
         titulo.setFont(new Font("Cascadia Code PL", Font.BOLD, 46));
 
         LabelValue etiquetaNombre = new LabelValue("Nombre del Producto: ","");
+        etiquetaNombre.getLabel().setFont(general);
         Input nombre = new Input("Nombre del producto");
+        nombre.setPreferredSize(new Dimension(200, 30));
 
-
+        LabelValue etiquetaPrecioCompra = new LabelValue("Precio de compra: ", "");
+        etiquetaPrecioCompra.getLabel().setFont(general);
         Input compra = new Input("Precio de compra");
+        compra.setPreferredSize(new Dimension(150, 30));
 
-
+        LabelValue etiquetaPrecioVenta = new LabelValue("Precio de Venta: ", "");
+        etiquetaPrecioVenta.getLabel().setFont(general);
         Input precio = new Input("Precio de venta");
+        precio.setPreferredSize(new Dimension(150, 30));
 
+        LabelValue etiquetaStock = new LabelValue("Stock: ", "");
+        etiquetaStock.getLabel().setFont(general);
         Input stock = new Input("Stock");
+        stock.setPreferredSize(new Dimension(100, 30));
 
+        LabelValue etiquetaMarca = new LabelValue("Marca: ", "");
+        etiquetaMarca.getLabel().setFont(general);
         Input marca = new Input("Marca");
+        marca.setPreferredSize(new Dimension(120, 30));
 
+        LabelValue etiquetaAlert = new LabelValue("Alertar de stock: ", "");
+        etiquetaAlert.getLabel().setFont(general);
         Input alerta = new Input("Alerta de stock");
+        alerta.setPreferredSize(new Dimension(100, 30));
 
+        LabelValue etiquetaCategoria = new  LabelValue("Categoria: ", "");
+        etiquetaCategoria.getLabel().setFont(general);
         JComboBox<ComboItem> categoria = new JComboBox<>();
         for(Categoria cat: crud.listarTodo()){
             ComboItem item = new ComboItem(cat.getNombre(),Integer.parseInt(cat.getCodigo()));
             categoria.addItem(item);
         }
 
+        LabelValue etiquetaProvedor = new  LabelValue("Proveedor: ", "");
+        etiquetaProvedor.getLabel().setFont(general);
         JComboBox<ComboItem> provedor = new JComboBox<>();
         for(Provedor pro : pcrud.listarTodo()){
             ComboItem item = new ComboItem(pro.getNombre(),Integer.parseInt(pro.getId()));
@@ -313,39 +334,41 @@ public class VentanaProducto extends JPanel implements ActionListener{
         marca.validate();
         categoria.validate();
 
+        etiquetaNombre.getValue().setVisible(false);
         linea1.add(etiquetaNombre);
         linea1.add(nombre);
-        linea1.add(Box.createHorizontalStrut(90));
+        linea1.add(Box.createHorizontalStrut(30));
 
-        linea1.add(new LabelValue("Precio de compra: ", ""));
+        linea1.add(etiquetaPrecioCompra);
         linea1.add(compra);
-        linea1.add(Box.createHorizontalStrut(90));
+        linea1.add(Box.createHorizontalStrut(30));
 
-        linea1.add(new LabelValue("Precio de venta: ",""));
+        linea1.add(etiquetaPrecioVenta);
         linea1.add(precio);
-        linea1.add(Box.createHorizontalStrut(90));
 
-        linea2.add(Box.createHorizontalStrut(84));
-        linea2.add(new LabelValue("Stock: ",""));
+        linea2.add(Box.createHorizontalStrut(-90));
+        linea2.add(etiquetaStock);
         linea2.add(stock);
-        linea2.add(Box.createHorizontalStrut(106));
+        linea2.add(Box.createHorizontalStrut(250));
 
-        linea2.add(new LabelValue("Alerta de stock: ",""));
+
+        linea2.add(etiquetaAlert);
         linea2.add(alerta);
-        linea2.add(Box.createHorizontalStrut(142 ));
+        linea2.add(Box.createHorizontalStrut(80));
 
-        linea2.add(new LabelValue("Marca: ",""));
+        linea2.add(etiquetaMarca);
         linea2.add(marca);
-        linea2.add(Box.createHorizontalStrut(150));
+        linea2.add(Box.createHorizontalStrut(30));
 
-        linea3.add(new LabelValue("Proveedor: ",""));
+
+        linea3.add(etiquetaProvedor);
         linea3.add(provedor);
         linea3.add(Box.createHorizontalStrut(90));
 
         JButton selectImage = new JButton("Cambiar imagen");
         selectImage.addActionListener(this::actionPerformed);
 
-        linea3.add(new LabelValue("Categoria: ",""));
+        linea3.add(etiquetaCategoria);
         linea3.add(categoria);
         linea3.add(Box.createHorizontalStrut(56));
         label.setText("Imagen del producto");
@@ -362,7 +385,9 @@ public class VentanaProducto extends JPanel implements ActionListener{
         center.setBorder(BorderFactory.createEmptyBorder(90, 10, 90, 10));
 
         center.add(linea1);
+        center.add(Box.createVerticalStrut(20));
         center.add(linea2);
+        center.add(Box.createVerticalStrut(10));
         center.add(linea3);
 
         panel.add(titulo, BorderLayout.NORTH);
@@ -378,12 +403,10 @@ public class VentanaProducto extends JPanel implements ActionListener{
             marca.setText("");
             categoria.setSelectedIndex(0);
             provedor.setSelectedIndex(0);
-            ventanaPrincipal.showCard("Productos");
+            modal.dispose();
         });
 
         guardar.addActionListener(e -> {
-            System.out.println(e.getActionCommand());
-            System.out.println("Agregando Producto");
             String nombreProducto = nombre.getText();
             String marcaProducto = marca.getText();
             ComboItem categoriaSelected = (ComboItem) categoria.getSelectedItem();
@@ -429,6 +452,8 @@ public class VentanaProducto extends JPanel implements ActionListener{
             ventanaPrincipal.showCard("Productos");
             actualizarProductos();
         });
+
+
 
         return panel;
     }
@@ -700,7 +725,6 @@ public class VentanaProducto extends JPanel implements ActionListener{
         });
 
         guardar.addActionListener(e -> {
-            System.out.println(e.getActionCommand());
 
             try {
                 producto.setNombreProducto(nombre.getText());
@@ -715,7 +739,6 @@ public class VentanaProducto extends JPanel implements ActionListener{
                 producto.setPrecio(precioVenta);
                 producto.setCategoria(Integer.parseInt(String.valueOf(((ComboItem) categoria.getSelectedItem()).getCodigo())));
                 producto.setCodigoDelProveedor(Integer.parseInt(String.valueOf(((ComboItem) provedor.getSelectedItem()).getCodigo())));
-                System.out.println("Producto editado exitosamente: "+producto.getNombreProducto()+"");
                 Producto update = new Producto(nombre.getText(),marca.getText(),((ComboItem) categoria.getSelectedItem()).getCodigo(),producto.getCodigo(),precioVenta,precioCompra,Integer.parseInt(stock.getText()),Integer.parseInt(alerta.getText()),((ComboItem) provedor.getSelectedItem()).getCodigo());
                 if(src!=null){
                     update.setImg(src);

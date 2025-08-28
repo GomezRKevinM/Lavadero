@@ -45,7 +45,6 @@ public class Ventana extends JFrame{
         ventanaEmpleado.setVentanaPrincipal(this);
 
         JPanel panelProductos = ventanaProducto.getPanelContenido();
-        JPanel agregarProducto = ventanaProducto.getPanelAgregar();
         JPanel panelServicios = ventanaServicio.getPanelContenido();
         JPanel panelClientes = ventanaCliente.getPanelContenido();
         JPanel panelCatalogo = ventanaCatalogo;

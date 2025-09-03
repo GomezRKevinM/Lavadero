@@ -2,7 +2,6 @@ package co.edu.udc.ejercicio28_lavadero.vistas.gui;
 
 import co.edu.udc.ejercicio28_lavadero.Principal;
 import co.edu.udc.ejercicio28_lavadero.modelo.crud.CategoriaCrudl;
-import co.edu.udc.ejercicio28_lavadero.modelo.crud.EmpleadoCrudl;
 import co.edu.udc.ejercicio28_lavadero.modelo.crud.ServicioCrudl;
 import co.edu.udc.ejercicio28_lavadero.modelo.entidades.Categoria;
 import co.edu.udc.ejercicio28_lavadero.modelo.entidades.Empleado;
@@ -23,7 +22,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 
-public class VentanaServicio extends JPanel implements ActionListener {
+public class VentanaServicio extends JPanel{
     private JPanel panelContenido;
     private Ventana ventanaPrincipal;
     private JLabel label = new JLabel("");
@@ -337,8 +336,41 @@ public class VentanaServicio extends JPanel implements ActionListener {
                     informacion.add(descripcion);
                     informacion.add(categoria);
                     informacion.add(empleados);
+                    JButton imgChange = new JButton("cambiar imagen");
+
+                    imgChange.addActionListener(e1 -> {
+                        JFileChooser chooser = new JFileChooser();
+                        int result = chooser.showDialog(modal, "Elija la imagen del servicio");
+                        if (result == JFileChooser.APPROVE_OPTION) {
+                            File seleccionada = chooser.getSelectedFile();
+                            String ruta = "src/main/resources/images/servicios/";
+                            File carpeta = new File(ruta);
+
+                            if (!carpeta.exists()) {
+                                carpeta.mkdirs();
+                            }
+
+                            File archivo = new File(ruta + seleccionada.getName());
+                            src = "src/main/resources/images/servicios/" + seleccionada.getName();
+
+                            try {
+                                Files.copy(seleccionada.toPath(), archivo.toPath(),
+                                        StandardCopyOption.REPLACE_EXISTING);
+                                label.setText("Archivo Seleccionado: " + archivo.getName());
+                                label.setIcon(Ventana.redimensionarImagen(src, 64, 64));
+                            } catch (IOException ex) {
+                                JOptionPane.showMessageDialog(this,
+                                        "No se pudo cambiar la imagen del servicio, error: " + ex.getMessage(),
+                                        "Error", JOptionPane.ERROR_MESSAGE);
+                            }
+                        } else {
+                            label.setText("No se seleccionó ningún archivo");
+                        }
+                    });
 
                     modificar.addActionListener(e1 -> {
+                        modal.add(label);
+                        modal.add(imgChange);
                         modal.setSize(650, 430);
                         nombre.getValue().setVisible(false);
                         Input nombreInput = new Input(service.getNombre());
@@ -397,6 +429,9 @@ public class VentanaServicio extends JPanel implements ActionListener {
                                 Categoria newCate = categoriaCrudl.buscar(categoriaSeleccionada.getCodigo());
                                 service.setCategoria(newCate);
                                 service.setPrecioDeVenta(Double.parseDouble(precioInput.getText().replaceAll("[^0-9]","")));
+                                if(src != null && !src.equals("default.png")){
+                                    service.setImagen(src.substring(src.lastIndexOf("/")+1));
+                                }
                                 crud.editar(service);
                                 modal.dispose();
                                 cargarServicios();
@@ -703,39 +738,5 @@ public class VentanaServicio extends JPanel implements ActionListener {
         modal.setAlwaysOnTop(true);
         modal.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
         modal.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-    }
-
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getActionCommand().equals("Cambiar imagen")) {
-            JFileChooser chooser = new JFileChooser();
-            int result = chooser.showDialog(this, "Elija la imagen del servicio");
-            if (result == JFileChooser.APPROVE_OPTION) {
-                File seleccionada = chooser.getSelectedFile();
-                String ruta = "src/main/resources/images/servicios/";
-                File carpeta = new File(ruta);
-
-                if (!carpeta.exists()) {
-                    carpeta.mkdirs();
-                }
-
-                File archivo = new File(ruta + seleccionada.getName());
-                src = "src/main/resources/images/servicios/" + seleccionada.getName();
-
-                try {
-                    Files.copy(seleccionada.toPath(), archivo.toPath(),
-                            StandardCopyOption.REPLACE_EXISTING);
-                    label.setText("Archivo Seleccionado: " + archivo.getName());
-                    label.setIcon(Ventana.redimensionarImagen(src, 64, 64));
-                } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(this,
-                            "No se pudo cambiar la imagen del servicio, error: " + ex.getMessage(),
-                            "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            } else {
-                label.setText("No se seleccionó ningún archivo");
-            }
-        }
     }
 }

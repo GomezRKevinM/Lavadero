@@ -1,0 +1,202 @@
+@startuml
+title Arquitectura + Modelo de Datos - Lavadero (Completo)
+
+actor Usuario
+
+rectangle "Frontend\n(Electron / JavaFX / Web)" as Frontend
+rectangle "Backend\n(API REST - Express / Java / PHP)" as Backend
+database "SQLite (lavadero.db)" as BD
+
+' ENTIDADES (idénticas al modelo completo)
+entity usuarios {
+  *id_usuario : INTEGER
+  nombre : TEXT
+  correo : TEXT
+  password : TEXT
+  rol : TEXT
+  empleado_id : INTEGER
+}
+
+entity Empleados {
+  *id_empleado : INTEGER
+  nombre : TEXT
+  documento : TEXT
+  telefono : TEXT
+  area_id : INTEGER
+}
+
+entity Clientes {
+  *id_cliente : INTEGER
+  nombre : TEXT
+  telefono : TEXT
+  correo : TEXT
+  direccion : TEXT
+  empresa_id : INTEGER
+}
+
+entity Empresas {
+  *id_empresa : INTEGER
+  nombre : TEXT
+  nit : TEXT
+  direccion : TEXT
+  telefono : TEXT
+}
+
+entity Bodegas {
+  *id_bodega : INTEGER
+  nombre : TEXT
+  ubicacion : TEXT
+  empresa_id : INTEGER
+}
+
+entity productos_bodega {
+  *id : INTEGER
+  producto_id : INTEGER
+  bodega_id : INTEGER
+  cantidad : INTEGER
+}
+
+entity Productos {
+  *id_producto : INTEGER
+  nombre : TEXT
+  descripcion : TEXT
+  precio : REAL
+  categoria_id : INTEGER
+  proveedor_id : INTEGER
+}
+
+entity Categorias {
+  *id_categoria : INTEGER
+  nombre : TEXT
+  descripcion : TEXT
+}
+
+entity provedores {
+  *id_proveedor : INTEGER
+  nombre : TEXT
+  contacto : TEXT
+  telefono : TEXT
+}
+
+entity Servicios {
+  *id_servicio : INTEGER
+  nombre : TEXT
+  descripcion : TEXT
+  precio : REAL
+}
+
+entity Catalogo {
+  *id_catalogo : INTEGER
+  tipo : TEXT
+  referencia_id : INTEGER
+  empresa_id : INTEGER
+}
+
+entity Pedidos {
+  *id_pedido : INTEGER
+  fecha : DATE
+  cliente_id : INTEGER
+  usuario_id : INTEGER
+  estado : TEXT
+  total : REAL
+}
+
+entity DetallesPedido {
+  *id_detalle : INTEGER
+  pedido_id : INTEGER
+  producto_id : INTEGER
+  cantidad : INTEGER
+  precio_unitario : REAL
+  subtotal : REAL
+}
+
+entity Cotizaciones {
+  *id_cotizacion : INTEGER
+  fecha : DATE
+  cliente_id : INTEGER
+  usuario_id : INTEGER
+  estado : TEXT
+  total : REAL
+}
+
+entity DetallesCotizacion {
+  *id_detalle_cot : INTEGER
+  cotizacion_id : INTEGER
+  producto_id : INTEGER
+  cantidad : INTEGER
+  precio : REAL
+}
+
+entity Contratos {
+  *id_contrato : INTEGER
+  cliente_id : INTEGER
+  empresa_id : INTEGER
+  fecha_inicio : DATE
+  fecha_fin : DATE
+  valor : REAL
+}
+
+entity InformacionDePago {
+  *id_pago : INTEGER
+  cliente_id : INTEGER
+  tipo : TEXT
+  datos : TEXT
+  estado : TEXT
+}
+
+entity NotaCorrecion {
+  *id_nota : INTEGER
+  fecha : DATE
+  cliente_id : INTEGER
+  usuario_id : INTEGER
+  pedido_id : INTEGER
+  descripcion : TEXT
+  valor : REAL
+}
+
+entity AreasDeTrabajo {
+  *id_area : INTEGER
+  nombre_area : TEXT
+  descripcion : TEXT
+}
+
+' RELACIONES (solo algunas mostradas para claridad; el modelo completo tiene todas)
+Categorias ||--o{ Productos : "agrupa"
+provedores ||--o{ Productos : "suministra"
+Productos ||--o{ productos_bodega : "stock en"
+Bodegas ||--o{ productos_bodega : "contiene"
+Clientes ||--o{ Pedidos : "realiza"
+Pedidos ||--o{ DetallesPedido : "contiene"
+Cotizaciones ||--o{ DetallesCotizacion : "contiene"
+AreasDeTrabajo ||--o{ Empleados : "tiene"
+
+' Flujo de arquitectura
+Usuario --> Frontend : Interacción UI/UX
+Frontend --> Backend : Peticiones HTTP/REST
+Backend --> BD : Consultas SQL / CRUD
+BD --> Backend : Resultados / Datos procesados
+Backend --> Frontend : Respuestas JSON
+Frontend --> Usuario : Visualización / Acciones
+
+' Conexión del bloque BD con las entidades del modelo
+BD -- usuarios
+BD -- Empleados
+BD -- Clientes
+BD -- Empresas
+BD -- Bodegas
+BD -- productos_bodega
+BD -- Productos
+BD -- Categorias
+BD -- provedores
+BD -- Servicios
+BD -- Catalogo
+BD -- Pedidos
+BD -- DetallesPedido
+BD -- Cotizaciones
+BD -- DetallesCotizacion
+BD -- Contratos
+BD -- InformacionDePago
+BD -- NotaCorrecion
+BD -- AreasDeTrabajo
+
+@enduml

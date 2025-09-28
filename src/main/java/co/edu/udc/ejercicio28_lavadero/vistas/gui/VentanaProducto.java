@@ -1,26 +1,19 @@
 package co.edu.udc.ejercicio28_lavadero.vistas.gui;
 
 import co.edu.udc.ejercicio28_lavadero.Principal;
-import co.edu.udc.ejercicio28_lavadero.modelo.crud.CategoriaCrudl;
-import co.edu.udc.ejercicio28_lavadero.modelo.crud.ProductoCrudl;
-import co.edu.udc.ejercicio28_lavadero.modelo.crud.ProveedorCrudl;
-import co.edu.udc.ejercicio28_lavadero.modelo.entidades.Categoria;
-import co.edu.udc.ejercicio28_lavadero.modelo.entidades.Producto;
-import co.edu.udc.ejercicio28_lavadero.modelo.entidades.Provedor;
-import co.edu.udc.ejercicio28_lavadero.vistas.gui.components.*;
-import org.intellij.lang.annotations.JdkConstants;
+import co.edu.udc.ejercicio28_lavadero.models.crud.CategoriaCrudl;
+import co.edu.udc.ejercicio28_lavadero.models.crud.ProductoCrudl;
+import co.edu.udc.ejercicio28_lavadero.models.crud.ProveedorCrudl;
+import co.edu.udc.ejercicio28_lavadero.models.entidades.Categoria;
+import co.edu.udc.ejercicio28_lavadero.models.entidades.Producto;
+import co.edu.udc.ejercicio28_lavadero.models.entidades.Provedor;
 
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-import java.util.jar.JarFile;
 
 
 public class VentanaProducto extends JPanel implements ActionListener{

@@ -1,9 +1,8 @@
 package co.edu.udc.ejercicio28_lavadero.util;
 
 import co.edu.udc.ejercicio28_lavadero.Color;
-import co.edu.udc.ejercicio28_lavadero.modelo.crud.CategoriaCrudl;
-import co.edu.udc.ejercicio28_lavadero.modelo.crud.ProductoCrudl;
-import co.edu.udc.ejercicio28_lavadero.modelo.entidades.*;
+import co.edu.udc.ejercicio28_lavadero.models.crud.CategoriaCrudl;
+import co.edu.udc.ejercicio28_lavadero.models.crud.ProductoCrudl;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

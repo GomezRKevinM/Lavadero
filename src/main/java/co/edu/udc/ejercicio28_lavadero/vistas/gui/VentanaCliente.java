@@ -1,22 +1,10 @@
 package co.edu.udc.ejercicio28_lavadero.vistas.gui;
 
-import co.edu.udc.ejercicio28_lavadero.Principal;
-import co.edu.udc.ejercicio28_lavadero.modelo.crud.ClienteCrudl;
-import co.edu.udc.ejercicio28_lavadero.modelo.entidades.Cliente;
-import co.edu.udc.ejercicio28_lavadero.modelo.entidades.TipoID;
-import co.edu.udc.ejercicio28_lavadero.vistas.gui.components.*;
+import co.edu.udc.ejercicio28_lavadero.models.crud.ClienteCrudl;
+import co.edu.udc.ejercicio28_lavadero.models.entidades.Cliente;
+import co.edu.udc.ejercicio28_lavadero.models.entidades.TipoID;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class VentanaCliente extends JPanel {
     private JPanel panelContenido;

@@ -1,16 +1,12 @@
 package co.edu.udc.ejercicio28_lavadero.vistas.gui;
 
 import co.edu.udc.ejercicio28_lavadero.Principal;
-import co.edu.udc.ejercicio28_lavadero.modelo.crud.CategoriaCrudl;
-import co.edu.udc.ejercicio28_lavadero.modelo.crud.ServicioCrudl;
-import co.edu.udc.ejercicio28_lavadero.modelo.entidades.Categoria;
-import co.edu.udc.ejercicio28_lavadero.modelo.entidades.Empleado;
-import co.edu.udc.ejercicio28_lavadero.modelo.entidades.Servicio;
-import co.edu.udc.ejercicio28_lavadero.vistas.gui.components.*;
+import co.edu.udc.ejercicio28_lavadero.models.crud.CategoriaCrudl;
+import co.edu.udc.ejercicio28_lavadero.models.crud.ServicioCrudl;
+import co.edu.udc.ejercicio28_lavadero.models.entidades.Categoria;
+import co.edu.udc.ejercicio28_lavadero.models.entidades.Empleado;
+import co.edu.udc.ejercicio28_lavadero.models.entidades.Servicio;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;

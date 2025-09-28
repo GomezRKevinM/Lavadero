@@ -1,6 +1,5 @@
 package co.edu.udc.ejercicio28_lavadero.vistas.gui;
 
-import co.edu.udc.ejercicio28_lavadero.modelo.crud.*;
 import co.edu.udc.ejercicio28_lavadero.vistas.gui.components.IconDetail;
 
 import javax.swing.*;

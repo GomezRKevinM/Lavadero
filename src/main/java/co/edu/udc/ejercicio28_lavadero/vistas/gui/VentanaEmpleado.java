@@ -1,21 +1,14 @@
 package co.edu.udc.ejercicio28_lavadero.vistas.gui;
 
-import co.edu.udc.ejercicio28_lavadero.modelo.crud.EmpleadoCrudl;
-import co.edu.udc.ejercicio28_lavadero.modelo.entidades.Empleado;
-import co.edu.udc.ejercicio28_lavadero.modelo.entidades.Contrato;
-import co.edu.udc.ejercicio28_lavadero.modelo.crud.ContratoCrudl;
-import co.edu.udc.ejercicio28_lavadero.modelo.entidades.Cargo;
-import co.edu.udc.ejercicio28_lavadero.modelo.entidades.TipoID;
-import co.edu.udc.ejercicio28_lavadero.vistas.gui.components.Boton;
+import co.edu.udc.ejercicio28_lavadero.models.crud.EmpleadoCrudl;
+import co.edu.udc.ejercicio28_lavadero.models.entidades.Empleado;
+import co.edu.udc.ejercicio28_lavadero.models.entidades.Contrato;
+import co.edu.udc.ejercicio28_lavadero.models.crud.ContratoCrudl;
+import co.edu.udc.ejercicio28_lavadero.models.entidades.Cargo;
+import co.edu.udc.ejercicio28_lavadero.models.entidades.TipoID;
 import co.edu.udc.ejercicio28_lavadero.vistas.gui.components.Input;
 import co.edu.udc.ejercicio28_lavadero.vistas.gui.components.LabelValue;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class VentanaEmpleado extends JPanel {

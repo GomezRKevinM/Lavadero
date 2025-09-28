@@ -1,9 +1,9 @@
 package co.edu.udc.ejercicio28_lavadero.util;
 
 import co.edu.udc.ejercicio28_lavadero.Color;
-import co.edu.udc.ejercicio28_lavadero.modelo.entidades.Categoria;
-import co.edu.udc.ejercicio28_lavadero.modelo.entidades.Servicio;
-import co.edu.udc.ejercicio28_lavadero.modelo.entidades.TipoID;
+import co.edu.udc.ejercicio28_lavadero.models.entidades.Categoria;
+import co.edu.udc.ejercicio28_lavadero.models.entidades.Servicio;
+import co.edu.udc.ejercicio28_lavadero.models.entidades.TipoID;
 
 import java.sql.Connection;
 import java.sql.Date;

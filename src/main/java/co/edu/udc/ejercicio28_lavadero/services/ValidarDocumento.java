@@ -12,13 +12,13 @@ public class ValidarDocumento {
             throw new DocumentoException("Formato de documento inválido");
         }
 
-        boolean existe = ConsultarData.existeDocumento("clientes", "cedula", documento);
-        if (!existe) {
-            throw new DocumentoException("El documento no existe en la base de datos");
+        boolean existe = ConsultarData.existeDocumento("clientes", "identificacion", documento);
+        if (existe) {
+            throw new DocumentoException("El documento ya existe en la base de datos");
         }
 
         DocumentoValido evento = new DocumentoValido(documento, Instant.now());
-        System.out.println("✅ Documento validado: " + evento.documento() + " en " + evento.fechaValidacion());
+        System.out.println("✅ Documento validado: " + evento.id() + " en " + evento.fechaValidacion());
         return true;
     }
 

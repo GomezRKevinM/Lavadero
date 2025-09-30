@@ -11,20 +11,6 @@ public class Supervisor extends Empleado {
         super(nombre,tipoID, identificacion, correo, telefono, direccion, contrato);
     }
 
-    public void asignarTurnoCliente(int turno, Cliente cliente) {
-        cliente.setTurno(turno);
-        turnos.add(cliente);
-    }
-
-    public Cliente buscarTurno(int turno) {
-        for (Cliente cliente : turnos) {
-            if (cliente.getTurno() == turno) {
-                return cliente;
-            }
-        }
-        return null;
-    }
-
     public Cliente getTurnoFirst() {
         return turnos.getFirst();
     }

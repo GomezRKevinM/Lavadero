@@ -4,6 +4,4 @@ import co.edu.udc.ejercicio28_lavadero.services.ValidarDocumento;
 
 import java.time.Instant;
 
-public record DocumentoValido(String documento, Instant fechaValidacion){
-
-}
+public record DocumentoValido(String id, Instant fechaValidacion){}

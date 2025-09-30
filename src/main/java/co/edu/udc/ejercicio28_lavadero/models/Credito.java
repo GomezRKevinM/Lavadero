@@ -1,5 +1,7 @@
 package co.edu.udc.ejercicio28_lavadero.models;
 
+import co.edu.udc.ejercicio28_lavadero.enums.MetodoPago;
+
 import java.sql.Date;
 import java.util.List;
 
@@ -11,7 +13,7 @@ public class Credito extends InformacionPago{
     Date FechaInicial;
     double pagosMensuales;
 
-    public Credito(int id,List<MetodoPago> metodos, String direccion, String telefono, String email, CuentaBancaria cuenta, Date fechaVencimiento, int limiteCredito, Date fechaInicial, double pagosMensuales) {
+    public Credito(int id, List<MetodoPago> metodos, String direccion, String telefono, String email, CuentaBancaria cuenta, Date fechaVencimiento, int limiteCredito, Date fechaInicial, double pagosMensuales) {
         super(id,metodos, direccion, telefono, email, cuenta);
         this.FechaVencimiento = fechaVencimiento;
         this.limiteCredito = limiteCredito;

@@ -1,9 +1,9 @@
-package co.edu.udc.ejercicio28_lavadero.models.crud;
+package co.edu.udc.ejercicio28_lavadero.model.crud;
 
 import co.edu.udc.ejercicio28_lavadero.Principal;
-import co.edu.udc.ejercicio28_lavadero.models.entidades.DetallePedido;
-import co.edu.udc.ejercicio28_lavadero.models.entidades.Pedido;
-import co.edu.udc.ejercicio28_lavadero.models.entidades.Producto;
+import co.edu.udc.ejercicio28_lavadero.models.DetallePedido;
+import co.edu.udc.ejercicio28_lavadero.models.Pedido;
+import co.edu.udc.ejercicio28_lavadero.models.Producto;
 import co.edu.udc.ejercicio28_lavadero.util.ConsultarData;
 import co.edu.udc.ejercicio28_lavadero.util.DeleteData;
 import co.edu.udc.ejercicio28_lavadero.util.InsertData;

@@ -4,18 +4,19 @@ import java.util.Date;
 import co.edu.udc.ejercicio28_lavadero.enums.*;
 
 import co.edu.udc.ejercicio28_lavadero.Color;
+import co.edu.udc.ejercicio28_lavadero.valueObjects.DocumentoIdentidad;
 
-public class  Persona {
+public class  Persona{
 
     protected String Nombre;
     protected TipoDocumento TipoDoc;
-    protected String Identificacion;
+    protected DocumentoIdentidad Identificacion;
     protected Date FechaNacimiento;
     protected String Correo;
     protected String Telefono;
     protected String Direccion;
     
-    public Persona(String nombre,TipoDocumento tipoID, String identificacion, String correo, String telefono, String direccion) {
+    public Persona(String nombre,TipoDocumento tipoID, DocumentoIdentidad identificacion, String correo, String telefono, String direccion) {
         this.Nombre = nombre;
         this.Identificacion = identificacion;
         this.Correo = correo;
@@ -40,11 +41,11 @@ public class  Persona {
         TipoDoc = tipoID;
     }
 
-    public String getIdentificacion() {
+    public DocumentoIdentidad getIdentificacion() {
         return Identificacion;
     }
 
-    public void setIdentificacion(String identificacion) {
+    public void setIdentificacion(DocumentoIdentidad identificacion) {
         Identificacion = identificacion;
     }
 

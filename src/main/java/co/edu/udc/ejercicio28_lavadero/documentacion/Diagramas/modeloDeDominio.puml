@@ -1,0 +1,57 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package "Dominio Lavadero cliente" {
+
+  class Cliente {
+    - vehiculos: List<Vehiculo>
+    - turno: Turno
+    + getVehiculos(): List<Vehiculo>
+    + getTurno(): Turno
+  }
+
+  class Persona {
+    - nombre: String
+    - tipoID: TipoDocumento
+    - identificacion: DocumentoIdentidad
+    - correo: CorreoElectronico
+    - telefono: NumeroTelefono
+    - direccion: DireccionFisica
+  }
+
+  class Vehiculo {
+    - placa: String
+    - modelo: String
+    - tipo: String
+  }
+
+  class DocumentoIdentidad {
+    - valor: String
+  }
+
+  class CorreoElectronico {
+    - valor: String
+  }
+
+  class NumeroTelefono {
+    - valor: String
+  }
+
+  class DireccionFisica {
+    - valor: String
+  }
+
+  class Turno {
+    - numero: int
+  }
+
+  Cliente --> Persona
+  Cliente --> Vehiculo
+  Persona --> DocumentoIdentidad
+  Persona --> CorreoElectronico
+  Persona --> NumeroTelefono
+  Persona --> DireccionFisica
+  Cliente --> Turno
+}
+
+@enduml

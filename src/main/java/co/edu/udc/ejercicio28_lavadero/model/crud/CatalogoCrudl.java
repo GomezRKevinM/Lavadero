@@ -1,7 +1,7 @@
-package co.edu.udc.ejercicio28_lavadero.models.crud;
+package co.edu.udc.ejercicio28_lavadero.model.crud;
 
-import co.edu.udc.ejercicio28_lavadero.models.entidades.Catalogo;
-import co.edu.udc.ejercicio28_lavadero.models.entidades.ManejoArchivos;
+import co.edu.udc.ejercicio28_lavadero.models.Catalogo;
+import co.edu.udc.ejercicio28_lavadero.models.ManejoArchivos;
 import co.edu.udc.ejercicio28_lavadero.util.InsertData;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

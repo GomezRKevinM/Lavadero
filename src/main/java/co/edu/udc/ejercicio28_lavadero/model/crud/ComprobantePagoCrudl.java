@@ -1,6 +1,13 @@
-package co.edu.udc.ejercicio28_lavadero.models.crud;
+package co.edu.udc.ejercicio28_lavadero.model.crud;
 
 import co.edu.udc.ejercicio28_lavadero.Color;
+import co.edu.udc.ejercicio28_lavadero.models.ComprobantePago;
+import co.edu.udc.ejercicio28_lavadero.models.Empresa;
+import co.edu.udc.ejercicio28_lavadero.models.ManejoArchivos;
+import co.edu.udc.ejercicio28_lavadero.models.Provedor;
+import co.edu.udc.ejercicio28_lavadero.enums.MetodoPago;
+import co.edu.udc.ejercicio28_lavadero.model.crud.ProveedorCrudl;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;

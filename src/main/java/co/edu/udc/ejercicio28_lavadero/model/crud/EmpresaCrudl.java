@@ -1,5 +1,8 @@
-package co.edu.udc.ejercicio28_lavadero.models.crud;
+package co.edu.udc.ejercicio28_lavadero.model.crud;
 
+import co.edu.udc.ejercicio28_lavadero.models.Catalogo;
+import co.edu.udc.ejercicio28_lavadero.models.Empresa;
+import co.edu.udc.ejercicio28_lavadero.models.InformacionPago;
 import co.edu.udc.ejercicio28_lavadero.util.ConsultarData;
 import co.edu.udc.ejercicio28_lavadero.util.DeleteData;
 import co.edu.udc.ejercicio28_lavadero.util.InsertData;

@@ -1,14 +1,18 @@
 package co.edu.udc.ejercicio28_lavadero.vistas.gui;
 
-import co.edu.udc.ejercicio28_lavadero.models.crud.EmpleadoCrudl;
-import co.edu.udc.ejercicio28_lavadero.models.entidades.Empleado;
-import co.edu.udc.ejercicio28_lavadero.models.entidades.Contrato;
-import co.edu.udc.ejercicio28_lavadero.models.crud.ContratoCrudl;
-import co.edu.udc.ejercicio28_lavadero.models.entidades.Cargo;
-import co.edu.udc.ejercicio28_lavadero.models.entidades.TipoID;
+import co.edu.udc.ejercicio28_lavadero.enums.Cargo;
+import co.edu.udc.ejercicio28_lavadero.enums.TipoDocumento;
+import co.edu.udc.ejercicio28_lavadero.exceptions.DocumentoException;
+import co.edu.udc.ejercicio28_lavadero.model.crud.EmpleadoCrudl;
+import co.edu.udc.ejercicio28_lavadero.models.Empleado;
+import co.edu.udc.ejercicio28_lavadero.models.Contrato;
+import co.edu.udc.ejercicio28_lavadero.model.crud.ContratoCrudl;
+import co.edu.udc.ejercicio28_lavadero.valueObjects.DocumentoIdentidad;
 import co.edu.udc.ejercicio28_lavadero.vistas.gui.components.Input;
 import co.edu.udc.ejercicio28_lavadero.vistas.gui.components.LabelValue;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 
 public class VentanaEmpleado extends JPanel {
@@ -22,7 +26,7 @@ public class VentanaEmpleado extends JPanel {
     private JTextField txtBuscar;
     private ArrayList<Empleado> empleadosFiltrados = new ArrayList<>();
 
-    public VentanaEmpleado() {
+    public VentanaEmpleado() throws DocumentoException {
         panelContenido = new JPanel();
         panelContenido.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         panelContenido.setPreferredSize(new Dimension(getWidth() - 20, getHeight() - 100));
@@ -71,7 +75,7 @@ public class VentanaEmpleado extends JPanel {
         add(panelContenido, BorderLayout.CENTER);
     }
 
-    private void cargarEmpleados() {
+    private void cargarEmpleados() throws DocumentoException {
         panelBotones.removeAll();
         EmpleadoCrudl crud = new EmpleadoCrudl();
         ArrayList<Empleado> empleados = crud.listarTodo();
@@ -102,7 +106,7 @@ public class VentanaEmpleado extends JPanel {
         ArrayList<Empleado> filtrados = new ArrayList<>();
         for (Empleado emp : empleadosFiltrados) {
             if (emp.getNombre().toLowerCase().contains(texto) ||
-                emp.getIdentificacion().toLowerCase().contains(texto)) {
+                emp.getIdentificacion().getValor().toLowerCase().contains(texto)) {
                 filtrados.add(emp);
             }
         }
@@ -126,7 +130,7 @@ public class VentanaEmpleado extends JPanel {
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         // Datos del empleado usando Input
         Input inputNombre = new Input("Nombre del Empleado");
-        JComboBox<TipoID> comboTipoID = new JComboBox<>(TipoID.values());
+        JComboBox<TipoDocumento> comboTipoID = new JComboBox<>(TipoDocumento.values());
         Input inputIdentificacion = new Input("Identificación");
         Input inputCorreo = new Input("Correo Electrónico");
         Input inputTelefono = new Input("Teléfono");
@@ -192,8 +196,13 @@ public class VentanaEmpleado extends JPanel {
 
         btnGuardar.addActionListener(ev -> {
             String nombre = inputNombre.getText();
-            TipoID tipoID = (TipoID) comboTipoID.getSelectedItem();
-            String identificacion = inputIdentificacion.getText();
+            TipoDocumento tipoID = (TipoDocumento) comboTipoID.getSelectedItem();
+            DocumentoIdentidad identificacion = null;
+            try {
+                identificacion = new DocumentoIdentidad(inputIdentificacion.getText());
+            } catch (DocumentoException e) {
+                throw new RuntimeException(e);
+            }
             String correo = inputCorreo.getText();
             String telefono = inputTelefono.getText();
             String direccion = inputDireccion.getText();
@@ -209,7 +218,7 @@ public class VentanaEmpleado extends JPanel {
             contrato.setFechaFinal(fechaFinal);
             contrato.setHorario(horario);
             contrato.setSueldoBase(salario);
-            contrato.setContratadoCC(identificacion);
+            contrato.setContratadoCC(identificacion.getValor());
             contrato.setContratante("1");
             ContratoCrudl contratoCrudl = new ContratoCrudl();
             contratoCrudl.agregar(contrato);
@@ -218,7 +227,11 @@ public class VentanaEmpleado extends JPanel {
             empleadoCrudl.agregar(empleado);
             JOptionPane.showMessageDialog(panel, "Empleado y contrato agregados correctamente.");
             dialog.dispose();
-            cargarEmpleados();
+            try {
+                cargarEmpleados();
+            } catch (DocumentoException e) {
+                throw new RuntimeException(e);
+            }
         });
         btnCancelar.addActionListener(ev -> dialog.dispose());
         dialog.setVisible(true);

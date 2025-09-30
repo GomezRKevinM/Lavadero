@@ -1,8 +1,14 @@
 package co.edu.udc.ejercicio28_lavadero.util;
 
 import co.edu.udc.ejercicio28_lavadero.Color;
-import co.edu.udc.ejercicio28_lavadero.models.crud.CategoriaCrudl;
-import co.edu.udc.ejercicio28_lavadero.models.crud.ProductoCrudl;
+import co.edu.udc.ejercicio28_lavadero.enums.Cargo;
+import co.edu.udc.ejercicio28_lavadero.enums.MetodoPago;
+import co.edu.udc.ejercicio28_lavadero.enums.TipoDocumento;
+import co.edu.udc.ejercicio28_lavadero.exceptions.DocumentoException;
+import co.edu.udc.ejercicio28_lavadero.models.*;
+import co.edu.udc.ejercicio28_lavadero.model.crud.CategoriaCrudl;
+import co.edu.udc.ejercicio28_lavadero.model.crud.ProductoCrudl;
+import co.edu.udc.ejercicio28_lavadero.valueObjects.DocumentoIdentidad;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -11,6 +17,7 @@ import com.google.gson.GsonBuilder;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class ConsultarData {
@@ -186,7 +193,7 @@ public class ConsultarData {
         throw new RuntimeException("Error al Seleccionar productos");
     }
 
-    public static String search(String tabla,String campos[],String busqueda){
+    public static String select(String tabla,String campos[],String busqueda){
         String sql = "SELECT * FROM "+tabla+" WHERE ";
         String sentencias = Arrays.stream(campos).map(","::concat).collect(Collectors.joining());
 
@@ -197,9 +204,25 @@ public class ConsultarData {
             String json = gson.toJson(rs);
             return json;
         }catch (SQLException e){
-            throw new RuntimeException("Error al Seleccionar productos: "+e.getMessage());
+            throw new RuntimeException("Error al Seleccionar datos : "+e.getMessage());
         }
     }
+
+    public static boolean existeDocumento(String tabla, String campo, String valorBusqueda) {
+        String sql = "SELECT 1 FROM " + tabla + " WHERE " + campo + " = ? LIMIT 1";
+
+        try (Connection conn = DatabaseConexion.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, valorBusqueda);
+            ResultSet rs = pstmt.executeQuery();
+            return rs.next(); // true si hay al menos un resultado
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al consultar datos: " + e.getMessage(), e);
+        }
+    }
+
 
     public static Producto Producto(String codigo){
         String sql = "SELECT * FROM Productos WHERE codigo = ?";
@@ -404,7 +427,7 @@ public class ConsultarData {
             ArrayList<Contrato> contratos = new ArrayList<>();
 
             while (rs.next()){
-                Contrato nuevo = new Contrato(rs.getString("id"),rs.getString("fecha_inicio"),rs.getDouble("sueldo_base"),Cargo.valueOf(rs.getString("cargo")),rs.getString("fecha_fin"),rs.getString("horario"));
+                Contrato nuevo = new Contrato(rs.getString("id"),rs.getString("fecha_inicio"),rs.getDouble("sueldo_base"), Cargo.valueOf(rs.getString("cargo")),rs.getString("fecha_fin"),rs.getString("horario"));
                 nuevo.agregarClausula(rs.getString("clausulas"));
                 contratos.add(nuevo);
             }
@@ -443,7 +466,7 @@ public class ConsultarData {
         throw new RuntimeException("Contrato no encontrado");
     }
 
-    public static ArrayList<Empleado> Empleados(){
+    public static ArrayList<Empleado> Empleados() throws DocumentoException {
         String sql = "SELECT * FROM Empleados";
 
         try(Connection conn = DatabaseConexion.getConnection();
@@ -454,7 +477,7 @@ public class ConsultarData {
 
             while (rs.next()){
                 Contrato contrato = Contrato(rs.getInt("contrato"));
-                Empleado nuevo = new Empleado(rs.getString("nombre"),TipoID.valueOf(rs.getString("tipoID")),rs.getString("identificacion"),rs.getString("correo"),rs.getString("telefono"),rs.getString("direccion"),contrato);
+                Empleado nuevo = new Empleado(rs.getString("nombre"),TipoDocumento.valueOf(rs.getString("tipoID")),new DocumentoIdentidad(rs.getString("identificacion")),rs.getString("correo"),rs.getString("telefono"),rs.getString("direccion"),contrato);
                 nuevo.setId(rs.getInt("id"));
                 empleados.add(nuevo);
             }
@@ -466,7 +489,7 @@ public class ConsultarData {
         throw new RuntimeException("Empleado no encontrado");
     }
 
-    public static Empleado Empleado(String identificacion){
+    public static Empleado Empleado(String identificacion) throws DocumentoException {
         String sql = "SELECT * FROM Empleados WHERE id = ?";
 
         try(Connection conn = DatabaseConexion.getConnection();
@@ -474,7 +497,7 @@ public class ConsultarData {
             pstmt.setString(1,identificacion);
             ResultSet rs = pstmt.executeQuery();
             if(rs.next()){
-                Empleado encontrado = new Empleado(rs.getString("nombre"),TipoID.valueOf(rs.getString("tipoID")),rs.getString("identificacion"),rs.getString("correo"),rs.getString("telefono"),rs.getString("direccion"),Contrato(rs.getInt("contrato")));
+                Empleado encontrado = new Empleado(rs.getString("nombre"), TipoDocumento.valueOf(rs.getString("tipoID")),new DocumentoIdentidad(rs.getString("identificacion")),rs.getString("correo"),rs.getString("telefono"),rs.getString("direccion"),Contrato(rs.getInt("contrato")));
                 encontrado.setId(rs.getInt("id"));
                 return encontrado;
             }else{
@@ -487,7 +510,7 @@ public class ConsultarData {
         throw new RuntimeException("Empleado no encontrado");
     }
 
-    public static ArrayList<Cotizacion> Cotizaciones(){
+    public static ArrayList<Cotizacion> Cotizaciones() throws DocumentoException {
         String sql = "SELECT * FROM Cotizaciones";
 
         try(Connection conn = DatabaseConexion.getConnection();
@@ -509,7 +532,7 @@ public class ConsultarData {
         throw new RuntimeException("Lista de cotizaciones vacia");
     }
 
-    public static Cotizacion Cotizacion(String id){
+    public static Cotizacion Cotizacion(String id) throws DocumentoException {
         String sql = "SELECT * FROM Cotizaciones WHERE id = ?";
 
         try(Connection conn = DatabaseConexion.getConnection();
@@ -527,7 +550,7 @@ public class ConsultarData {
         throw new RuntimeException("Cotización no encontrada");
     }
 
-    public static ArrayList<DetalleCotizacion> DetallesCotiaciones(){
+    public static ArrayList<DetalleCotizacion> DetallesCotiaciones() throws DocumentoException {
         String sql = "SELECT * FROM DetallesCotizacion";
 
         try(Connection conn = DatabaseConexion.getConnection();
@@ -550,7 +573,7 @@ public class ConsultarData {
         throw new RuntimeException("Lista de detalles de cotizaciones vacia");
     }
 
-    public static DetalleCotizacion DetalleCotizacion(String id){
+    public static DetalleCotizacion DetalleCotizacion(String id) throws DocumentoException {
         String sql = "SELECT * FROM DetallesCotizacion WHERE id = ?";
 
         try (Connection conn = DatabaseConexion.getConnection();
@@ -593,7 +616,7 @@ public class ConsultarData {
         throw new RuntimeException("Error al Seleccionar areas de trabajo");
     }
 
-    public static ArrayList<Cliente> Clientes(){
+    public static ArrayList<Cliente> Clientes() throws DocumentoException {
         String sql = "SELECT * FROM Clientes";
 
         try(Connection conn = DatabaseConexion.getConnection();
@@ -601,7 +624,7 @@ public class ConsultarData {
             ResultSet rs = pstmt.executeQuery();){
             ArrayList<Cliente> listaDeClientes = new ArrayList<>();
             while (rs.next()){
-                Cliente nuevo = new Cliente(rs.getString("nombre"),TipoID.valueOf(rs.getString("tipo_id")),rs.getString("identificacion"),rs.getString("correo"),rs.getString("telefono"),rs.getString("direccion"));
+                Cliente nuevo = new Cliente(rs.getString("nombre"),TipoDocumento.valueOf(rs.getString("tipo_id")),new DocumentoIdentidad(rs.getString("identificacion")),rs.getString("correo"),rs.getString("telefono"),rs.getString("direccion"));
                 listaDeClientes.add(nuevo);
             }
             return listaDeClientes;
@@ -611,7 +634,7 @@ public class ConsultarData {
         throw new RuntimeException("Error: ");
     }
 
-    public static ArrayList<Cliente> Cliente(String busqueda){
+    public static ArrayList<Cliente> Cliente(String busqueda) throws DocumentoException {
         String sql = "SELECT * FROM Clientes WHERE nombre LIKE '%"+busqueda+"%' OR identificacion = '"+busqueda+"'";
         try(Connection conn = DatabaseConexion.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -619,7 +642,7 @@ public class ConsultarData {
 
             ArrayList<Cliente> listaDeClientes = new ArrayList<>();
             while (rs.next()){
-                Cliente encontrado = new Cliente(rs.getString("nombre"),TipoID.valueOf(rs.getString("tipo_id")),rs.getString("identificacion"),rs.getString("correo"),rs.getString("telefono"),rs.getString("direccion"));
+                Cliente encontrado = new Cliente(rs.getString("nombre"),TipoDocumento.valueOf(rs.getString("tipo_id")),new DocumentoIdentidad(rs.getString("identificacion")),rs.getString("correo"),rs.getString("telefono"),rs.getString("direccion"));
                 listaDeClientes.add(encontrado);
             }
 

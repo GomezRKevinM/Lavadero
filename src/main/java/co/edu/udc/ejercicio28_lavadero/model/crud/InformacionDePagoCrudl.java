@@ -1,6 +1,6 @@
-package co.edu.udc.ejercicio28_lavadero.models.crud;
+package co.edu.udc.ejercicio28_lavadero.model.crud;
 
-import co.edu.udc.ejercicio28_lavadero.models.entidades.InformacionPago;
+import co.edu.udc.ejercicio28_lavadero.models.InformacionPago;
 
 import java.util.ArrayList;
 

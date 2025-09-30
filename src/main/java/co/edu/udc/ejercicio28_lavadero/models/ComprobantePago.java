@@ -1,5 +1,7 @@
 package co.edu.udc.ejercicio28_lavadero.models;
 
+import co.edu.udc.ejercicio28_lavadero.enums.MetodoPago;
+
 import java.util.Date;
 
 public class ComprobantePago {

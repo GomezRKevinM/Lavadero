@@ -1,7 +1,7 @@
 package co.edu.udc.ejercicio28_lavadero.vistas.gui;
 
-import co.edu.udc.ejercicio28_lavadero.models.crud.CategoriaCrudl;
-import co.edu.udc.ejercicio28_lavadero.models.entidades.Categoria;
+import co.edu.udc.ejercicio28_lavadero.model.crud.CategoriaCrudl;
+import co.edu.udc.ejercicio28_lavadero.models.Categoria;
 
 import co.edu.udc.ejercicio28_lavadero.util.ConsultarData;
 import co.edu.udc.ejercicio28_lavadero.vistas.gui.components.Boton;
@@ -9,6 +9,9 @@ import co.edu.udc.ejercicio28_lavadero.vistas.gui.components.IconDetail;
 import co.edu.udc.ejercicio28_lavadero.vistas.gui.components.Input;
 import co.edu.udc.ejercicio28_lavadero.vistas.gui.components.InputIcon;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -78,7 +81,7 @@ public class VentanaCategoria extends JPanel implements ActionListener {
                     String[] campos = new String[2];
                     campos[0] = "nombre";
                     campos[1] = "icono";
-                    String resultados = ConsultarData.search("categorias",campos,buscar.getTextField().getText());
+                    String resultados = ConsultarData.select("categorias",campos,buscar.getTextField().getText());
                 }
             }
 

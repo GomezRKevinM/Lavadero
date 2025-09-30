@@ -1,14 +1,17 @@
 package co.edu.udc.ejercicio28_lavadero.vistas.gui;
 
-import co.edu.udc.ejercicio28_lavadero.models.entidades.Producto;
-import co.edu.udc.ejercicio28_lavadero.models.entidades.Servicio;
-import co.edu.udc.ejercicio28_lavadero.models.entidades.Categoria;
-import co.edu.udc.ejercicio28_lavadero.models.crud.ProductoCrudl;
-import co.edu.udc.ejercicio28_lavadero.models.crud.ServicioCrudl;
-import co.edu.udc.ejercicio28_lavadero.models.crud.CategoriaCrudl;
+import co.edu.udc.ejercicio28_lavadero.models.Producto;
+import co.edu.udc.ejercicio28_lavadero.models.Servicio;
+import co.edu.udc.ejercicio28_lavadero.models.Categoria;
+import co.edu.udc.ejercicio28_lavadero.model.crud.ProductoCrudl;
+import co.edu.udc.ejercicio28_lavadero.model.crud.ServicioCrudl;
+import co.edu.udc.ejercicio28_lavadero.model.crud.CategoriaCrudl;
 
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class VentanaCatalogo extends JPanel {
     public VentanaCatalogo() {

@@ -1,5 +1,7 @@
 package co.edu.udc.ejercicio28_lavadero.models;
 
+import co.edu.udc.ejercicio28_lavadero.exceptions.DocumentoException;
+
 import java.sql.Date;
 
 public class DetalleCotizacion extends DetalleDocumento {
@@ -15,7 +17,7 @@ public class DetalleCotizacion extends DetalleDocumento {
 
     }
 
-    public DetalleCotizacion(){
+    public DetalleCotizacion() throws DocumentoException {
         super(10,10000,10,10);
         this.producto = new Producto("Trapo limpiador","generica",5,"1",10000,5000,10,10,1);
         this.id = 0;

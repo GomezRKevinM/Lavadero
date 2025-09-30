@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import co.edu.udc.ejercicio28_lavadero.Color;
+import co.edu.udc.ejercicio28_lavadero.enums.MetodoPago;
 
 public class InformacionPago {
     private int id;

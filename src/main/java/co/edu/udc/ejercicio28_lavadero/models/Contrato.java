@@ -1,6 +1,8 @@
 package co.edu.udc.ejercicio28_lavadero.models;
 
 
+import co.edu.udc.ejercicio28_lavadero.enums.Cargo;
+
 import java.util.ArrayList;
 import java.util.Locale;
 

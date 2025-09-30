@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import co.edu.udc.ejercicio28_lavadero.Color;
+import co.edu.udc.ejercicio28_lavadero.exceptions.DocumentoException;
 
 public class Cotizacion extends Documento {
     private Date fechaExpiracion;
@@ -23,7 +24,7 @@ public class Cotizacion extends Documento {
         this.realiza = realizado;
     }
 
-    public Cotizacion() {
+    public Cotizacion() throws DocumentoException {
         super("1", new Date(2020, 4, 24));
         this.estado = "Pendiente";
         this.fechaExpiracion = new Date(2020, 4, 24);

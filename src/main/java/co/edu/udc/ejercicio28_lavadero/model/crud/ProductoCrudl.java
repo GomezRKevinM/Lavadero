@@ -1,11 +1,14 @@
-package co.edu.udc.ejercicio28_lavadero.models.crud;
+package co.edu.udc.ejercicio28_lavadero.model.crud;
 
 
-import co.edu.udc.ejercicio28_lavadero.models.entidades.Categoria;
-import co.edu.udc.ejercicio28_lavadero.models.entidades.Producto;
+import co.edu.udc.ejercicio28_lavadero.models.Categoria;
+import co.edu.udc.ejercicio28_lavadero.models.Producto;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.ArrayList;
+import java.util.Currency;
+import java.util.Locale;
 
 import co.edu.udc.ejercicio28_lavadero.util.ConsultarData;
 import co.edu.udc.ejercicio28_lavadero.util.DeleteData;

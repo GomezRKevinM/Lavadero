@@ -1,5 +1,7 @@
 package co.edu.udc.ejercicio28_lavadero.models;
 
+import co.edu.udc.ejercicio28_lavadero.enums.MetodoPago;
+
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;

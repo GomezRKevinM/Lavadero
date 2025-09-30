@@ -1,14 +1,18 @@
 package co.edu.udc.ejercicio28_lavadero.vistas.gui;
 
 import co.edu.udc.ejercicio28_lavadero.Principal;
-import co.edu.udc.ejercicio28_lavadero.models.crud.CategoriaCrudl;
-import co.edu.udc.ejercicio28_lavadero.models.crud.ProductoCrudl;
-import co.edu.udc.ejercicio28_lavadero.models.crud.ProveedorCrudl;
-import co.edu.udc.ejercicio28_lavadero.models.entidades.Categoria;
-import co.edu.udc.ejercicio28_lavadero.models.entidades.Producto;
-import co.edu.udc.ejercicio28_lavadero.models.entidades.Provedor;
+import co.edu.udc.ejercicio28_lavadero.model.crud.CategoriaCrudl;
+import co.edu.udc.ejercicio28_lavadero.model.crud.ProductoCrudl;
+import co.edu.udc.ejercicio28_lavadero.model.crud.ProveedorCrudl;
+import co.edu.udc.ejercicio28_lavadero.models.Categoria;
+import co.edu.udc.ejercicio28_lavadero.models.Producto;
+import co.edu.udc.ejercicio28_lavadero.models.Provedor;
+import co.edu.udc.ejercicio28_lavadero.vistas.gui.components.*;
 
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -16,7 +20,7 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
 
-public class VentanaProducto extends JPanel implements ActionListener{
+public class VentanaProducto extends JPanel implements ActionListener {
     private JPanel panelContenido;
     private Ventana ventanaPrincipal;
     private JDialog dialog;

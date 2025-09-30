@@ -1,6 +1,6 @@
-package co.edu.udc.ejercicio28_lavadero.models.crud;
+package co.edu.udc.ejercicio28_lavadero.model.crud;
 
-import co.edu.udc.ejercicio28_lavadero.models.entidades.NotaCorrecion;
+import co.edu.udc.ejercicio28_lavadero.models.NotaCorrecion;
 import co.edu.udc.ejercicio28_lavadero.util.InsertData;
 
 import java.util.ArrayList;

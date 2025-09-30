@@ -1,5 +1,9 @@
 package co.edu.udc.ejercicio28_lavadero.models;
 
+import co.edu.udc.ejercicio28_lavadero.enums.TipoDocumento;
+import co.edu.udc.ejercicio28_lavadero.exceptions.DocumentoException;
+import co.edu.udc.ejercicio28_lavadero.valueObjects.DocumentoIdentidad;
+
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,13 +12,13 @@ public class Empleado extends Persona{
     Contrato contrato;
     int id;
 
-    public Empleado(String nombre, TipoID tipoID,String identificacion, String correo, String telefono, String direccion, Contrato contrato) {
+    public Empleado(String nombre, TipoDocumento tipoID, DocumentoIdentidad identificacion, String correo, String telefono, String direccion, Contrato contrato) {
         super(nombre, tipoID,identificacion, correo, telefono, direccion);
         this.contrato = contrato;
     }
 
-    public Empleado(){
-        super("Ivan Montero", co.edu.udc.ejercicio28_lavadero.models.entidades.TipoID.Cedula,"1001973042","patovamp@gmail.com","3145970852","Sincelejo Br Prado Cll 5B #45C-14");
+    public Empleado() throws DocumentoException {
+        super("Ivan Montero", TipoDocumento.Cedula,new DocumentoIdentidad("1001973042"),"patovamp@gmail.com","3145970852","Sincelejo Br Prado Cll 5B #45C-14");
         contrato = new Contrato();
     }
 

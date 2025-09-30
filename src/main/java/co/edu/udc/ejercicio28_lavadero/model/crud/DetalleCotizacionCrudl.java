@@ -1,7 +1,8 @@
-package co.edu.udc.ejercicio28_lavadero.models.crud;
+package co.edu.udc.ejercicio28_lavadero.model.crud;
 
 import co.edu.udc.ejercicio28_lavadero.Color;
-import co.edu.udc.ejercicio28_lavadero.models.entidades.DetalleCotizacion;
+import co.edu.udc.ejercicio28_lavadero.exceptions.DocumentoException;
+import co.edu.udc.ejercicio28_lavadero.models.DetalleCotizacion;
 import co.edu.udc.ejercicio28_lavadero.util.ConsultarData;
 import co.edu.udc.ejercicio28_lavadero.util.DeleteData;
 import co.edu.udc.ejercicio28_lavadero.util.InsertData;
@@ -89,11 +90,11 @@ public class DetalleCotizacionCrudl {
         }
     }
 
-    public ArrayList<DetalleCotizacion> listarTodo(){
+    public ArrayList<DetalleCotizacion> listarTodo() throws DocumentoException {
         return ConsultarData.DetallesCotiaciones();
     }
 
-    public Integer contar(){
+    public Integer contar() throws DocumentoException {
         return listarTodo().size();
     }
 }

@@ -1,5 +1,7 @@
 package co.edu.udc.ejercicio28_lavadero.models;
 
+import co.edu.udc.ejercicio28_lavadero.exceptions.DocumentoException;
+
 import java.sql.Date;
 
 public class DetalleVentaServicio extends DetalleDocumento{
@@ -11,7 +13,7 @@ public class DetalleVentaServicio extends DetalleDocumento{
     double precioTotal;
     Vehiculo vehiculo;
 
-    public DetalleVentaServicio(){
+    public DetalleVentaServicio() throws DocumentoException {
         super(1, 200000, 0, 0.19);
         fechaInicio = new Date(2020,04,10);
         fechaFinal = new Date(2020,04,10);

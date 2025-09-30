@@ -1,12 +1,19 @@
 package co.edu.udc.ejercicio28_lavadero.vistas.gui;
 
 import co.edu.udc.ejercicio28_lavadero.Principal;
-import co.edu.udc.ejercicio28_lavadero.models.crud.CategoriaCrudl;
-import co.edu.udc.ejercicio28_lavadero.models.crud.ServicioCrudl;
-import co.edu.udc.ejercicio28_lavadero.models.entidades.Categoria;
-import co.edu.udc.ejercicio28_lavadero.models.entidades.Empleado;
-import co.edu.udc.ejercicio28_lavadero.models.entidades.Servicio;
+import co.edu.udc.ejercicio28_lavadero.model.crud.CategoriaCrudl;
+import co.edu.udc.ejercicio28_lavadero.model.crud.ServicioCrudl;
+import co.edu.udc.ejercicio28_lavadero.models.Categoria;
+import co.edu.udc.ejercicio28_lavadero.models.Empleado;
+import co.edu.udc.ejercicio28_lavadero.models.Servicio;
+import co.edu.udc.ejercicio28_lavadero.vistas.gui.components.*;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -18,7 +25,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 
-public class VentanaServicio extends JPanel{
+public class VentanaServicio extends JPanel {
     private JPanel panelContenido;
     private Ventana ventanaPrincipal;
     private JLabel label = new JLabel("");

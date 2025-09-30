@@ -1,9 +1,9 @@
 package co.edu.udc.ejercicio28_lavadero.util;
 
-import co.edu.udc.ejercicio28_lavadero.models.entidades.Categoria;
-import co.edu.udc.ejercicio28_lavadero.models.entidades.Contrato;
-import co.edu.udc.ejercicio28_lavadero.models.entidades.Producto;
-import co.edu.udc.ejercicio28_lavadero.models.entidades.Servicio;
+import co.edu.udc.ejercicio28_lavadero.models.Categoria;
+import co.edu.udc.ejercicio28_lavadero.models.Contrato;
+import co.edu.udc.ejercicio28_lavadero.models.Producto;
+import co.edu.udc.ejercicio28_lavadero.models.Servicio;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

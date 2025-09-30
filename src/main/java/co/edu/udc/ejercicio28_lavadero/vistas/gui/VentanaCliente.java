@@ -1,9 +1,16 @@
 package co.edu.udc.ejercicio28_lavadero.vistas.gui;
 
-import co.edu.udc.ejercicio28_lavadero.models.crud.ClienteCrudl;
-import co.edu.udc.ejercicio28_lavadero.models.entidades.Cliente;
-import co.edu.udc.ejercicio28_lavadero.models.entidades.TipoID;
+import co.edu.udc.ejercicio28_lavadero.enums.TipoDocumento;
+import co.edu.udc.ejercicio28_lavadero.exceptions.DocumentoException;
+import co.edu.udc.ejercicio28_lavadero.model.crud.ClienteCrudl;
+import co.edu.udc.ejercicio28_lavadero.models.Cliente;
+import co.edu.udc.ejercicio28_lavadero.valueObjects.DocumentoIdentidad;
+import co.edu.udc.ejercicio28_lavadero.vistas.gui.components.*;
 
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 import java.util.ArrayList;
 
 public class VentanaCliente extends JPanel {
@@ -113,7 +120,7 @@ public class VentanaCliente extends JPanel {
                                     LabelValue nombre = new LabelValue("Nombre: ", client.getNombre());
                                     nombre.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 0));
 
-                                    LabelValue id = new LabelValue("ID: ", client.getIdentificacion());
+                                    LabelValue id = new LabelValue("ID: ", client.getIdentificacion().getValor());
                                     id.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 0));
 
                                     LabelValue direccion = new LabelValue("Dirección: ", client.getDireccion());
@@ -171,7 +178,7 @@ public class VentanaCliente extends JPanel {
                                     });
                                     eliminar.addActionListener(e1 -> {
                                         try{
-                                            crud.eliminar(client.getIdentificacion());
+                                            crud.eliminar(client.getIdentificacion().getValor());
                                             JOptionPane.showMessageDialog(null, "Cliente eliminado correctamente");
                                             modal.dispose();
                                             cargarClientes();
@@ -273,7 +280,7 @@ public class VentanaCliente extends JPanel {
                     LabelValue nombre = new LabelValue("Nombre: ", client.getNombre());
                     nombre.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 0));
 
-                    LabelValue id = new LabelValue("ID: ", client.getIdentificacion());
+                    LabelValue id = new LabelValue("ID: ", client.getIdentificacion().getValor());
                     id.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 0));
 
                     LabelValue direccion = new LabelValue("Dirección: ", client.getDireccion());
@@ -354,7 +361,7 @@ public class VentanaCliente extends JPanel {
                     });
                     eliminar.addActionListener(e1 -> {
                         try{
-                            crud.eliminar(client.getIdentificacion());
+                            crud.eliminar(client.getIdentificacion().getValor());
                             JOptionPane.showMessageDialog(null, "Cliente eliminado correctamente");
                             modal.dispose();
                             cargarClientes();
@@ -444,7 +451,7 @@ public class VentanaCliente extends JPanel {
         LabelValue tipoID = new LabelValue("Tipo ID: ", "");
 
         tipoID.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 0));
-        JComboBox<TipoID> tipoIDCombo = new JComboBox<>(TipoID.values());
+        JComboBox<TipoDocumento> tipoIDCombo = new JComboBox<>(TipoDocumento.values());
         tipoIDLine.add(tipoID);
         tipoIDLine.add(tipoIDCombo);
 
@@ -516,7 +523,12 @@ public class VentanaCliente extends JPanel {
             String tipoIDCliente = tipoIDCombo.getSelectedItem().toString();
             String identificacionCliente = identificacionInput.getText();
 
-            Cliente nuevo = new Cliente(nombreCliente,TipoID.valueOf(tipoIDCliente), identificacionCliente, direccionCliente, telefonoCliente, emailCliente);
+            Cliente nuevo = null;
+            try {
+                nuevo = new Cliente(nombreCliente, TipoDocumento.valueOf(tipoIDCliente), new DocumentoIdentidad(identificacionCliente), direccionCliente, telefonoCliente, emailCliente);
+            } catch (DocumentoException ex) {
+                throw new RuntimeException(ex);
+            }
 
 
             ClienteCrudl crud = new ClienteCrudl();

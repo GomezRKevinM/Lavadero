@@ -1,8 +1,9 @@
-package co.edu.udc.ejercicio28_lavadero.models.crud;
+package co.edu.udc.ejercicio28_lavadero.model.crud;
 
-import co.edu.udc.ejercicio28_lavadero.models.entidades.Cotizacion;
-import co.edu.udc.ejercicio28_lavadero.models.entidades.Empleado;
-import co.edu.udc.ejercicio28_lavadero.models.entidades.Empresa;
+import co.edu.udc.ejercicio28_lavadero.exceptions.DocumentoException;
+import co.edu.udc.ejercicio28_lavadero.models.Cotizacion;
+import co.edu.udc.ejercicio28_lavadero.models.Empleado;
+import co.edu.udc.ejercicio28_lavadero.models.Empresa;
 import co.edu.udc.ejercicio28_lavadero.util.ConsultarData;
 import co.edu.udc.ejercicio28_lavadero.util.DeleteData;
 import co.edu.udc.ejercicio28_lavadero.util.InsertData;
@@ -17,11 +18,11 @@ public class CotizacionCrudl {
         InsertData.Cotizacion(cotizacion.getFechaEmision(),cotizacion.getFechaExpiracion(),1,0,1,cotizacion.getEstado());
     }
 
-    public Cotizacion buscar(String codigo){
+    public Cotizacion buscar(String codigo) throws DocumentoException {
         return ConsultarData.Cotizacion(codigo);
     }
 
-    public void editar(Cotizacion cotizacion){
+    public void editar(Cotizacion cotizacion) throws DocumentoException {
         System.out.println("Editar Cotizacion: ");
         System.out.println("1) Estado: "+cotizacion.getEstado());
         System.out.println("2) Empleado que revisa: "+cotizacion.getEmpleadoRevisa().getNombre());
@@ -57,11 +58,11 @@ public class CotizacionCrudl {
         DeleteData.DeleteTable("Cotizaciones","id",Integer.parseInt(codigo));
     }
 
-    public ArrayList<Cotizacion> listarTodo(){
+    public ArrayList<Cotizacion> listarTodo() throws DocumentoException {
         return ConsultarData.Cotizaciones();
     }
 
-    public Integer contar(){
+    public Integer contar() throws DocumentoException {
         return listarTodo().size();
     }
 }

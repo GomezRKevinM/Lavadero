@@ -1,9 +1,10 @@
 package co.edu.udc.ejercicio28_lavadero.util;
 
 import co.edu.udc.ejercicio28_lavadero.Color;
-import co.edu.udc.ejercicio28_lavadero.models.entidades.Categoria;
-import co.edu.udc.ejercicio28_lavadero.models.entidades.Servicio;
-import co.edu.udc.ejercicio28_lavadero.models.entidades.TipoID;
+import co.edu.udc.ejercicio28_lavadero.enums.TipoDocumento;
+import co.edu.udc.ejercicio28_lavadero.models.Categoria;
+import co.edu.udc.ejercicio28_lavadero.models.Servicio;
+
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -121,7 +122,7 @@ public class InsertData {
         }
     }
 
-    public static void Empleado(String nombre, TipoID tipoID, String correo, String telefono, String direccion, int contrato, String identificacion){
+    public static void Empleado(String nombre, TipoDocumento tipoID, String correo, String telefono, String direccion, int contrato, String identificacion){
         String sql = "INSERT INTO Empleados(nombre,tipoID,correo,telefono,direccion,contrato,identificacion) VALUES (?,?,?,?,?,?,?)";
 
         try(Connection conn = DatabaseConexion.getConnection();

@@ -1,11 +1,14 @@
-package co.edu.udc.ejercicio28_lavadero.models.crud;
+package co.edu.udc.ejercicio28_lavadero.model.crud;
 
-import co.edu.udc.ejercicio28_lavadero.models.entidades.Empleado;
-import co.edu.udc.ejercicio28_lavadero.models.entidades.TipoID;
+import co.edu.udc.ejercicio28_lavadero.enums.TipoDocumento;
+import co.edu.udc.ejercicio28_lavadero.exceptions.DocumentoException;
+import co.edu.udc.ejercicio28_lavadero.models.Empleado;
+
 import co.edu.udc.ejercicio28_lavadero.util.ConsultarData;
 import co.edu.udc.ejercicio28_lavadero.util.DeleteData;
 import co.edu.udc.ejercicio28_lavadero.util.InsertData;
 import co.edu.udc.ejercicio28_lavadero.util.UpdateData;
+import co.edu.udc.ejercicio28_lavadero.valueObjects.DocumentoIdentidad;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -13,10 +16,10 @@ import java.util.Scanner;
 public class EmpleadoCrudl {
 
     public void agregar(Empleado empleado){
-        InsertData.Empleado(empleado.getNombre(),empleado.getTipoID(),empleado.getCorreo(),empleado.getTelefono(),empleado.getDireccion(),Integer.parseInt(empleado.getContrato().getId()),empleado.getIdentificacion());
+        InsertData.Empleado(empleado.getNombre(),empleado.getTipoID(),empleado.getCorreo(),empleado.getTelefono(),empleado.getDireccion(),Integer.parseInt(empleado.getContrato().getId()),empleado.getIdentificacion().getValor());
     }
 
-    public Empleado buscar(String codigo){
+    public Empleado buscar(String codigo) throws DocumentoException {
         return ConsultarData.Empleado(codigo);
     }
 
@@ -38,35 +41,35 @@ public class EmpleadoCrudl {
             case "1":
                 System.out.println("Nuevo nombre: ");
                 String nuevoNombre = input.nextLine();
-                UpdateData.Empleado("nombre",nuevoNombre,empleado.getIdentificacion());
+                UpdateData.Empleado("nombre",nuevoNombre,empleado.getIdentificacion().getValor());
                 break;
             case "2":
                 System.out.println("Nuevo tipo de ID: ");
-                for(TipoID tipo: TipoID.values()){
+                for(TipoDocumento tipo: TipoDocumento.values()){
                     System.out.println(tipo.ordinal()+1+") "+tipo.name());
                 }
                 System.out.println("Seleccione una opcion: ");
                 int nuevoTipoID = Integer.parseInt(input.nextLine());
-                TipoID tipoID = TipoID.values()[nuevoTipoID-1];
-                UpdateData.Empleado("tipoID",tipoID.name(),empleado.getIdentificacion());
+                TipoDocumento tipoID = TipoDocumento.values()[nuevoTipoID-1];
+                UpdateData.Empleado("tipoID",tipoID.name(),empleado.getIdentificacion().getValor());
 
                 break;
             case "3":
                 System.out.println("Nuevo correo: ");
                 String nuevoCorreo = input.nextLine();
-                UpdateData.Empleado("correo",nuevoCorreo,empleado.getIdentificacion());
+                UpdateData.Empleado("correo",nuevoCorreo,empleado.getIdentificacion().getValor());
 
                 break;
             case "4":
                 System.out.println("Nuevo telefono: ");
                 String nuevoTelefono = input.nextLine();
-                UpdateData.Empleado("telefono",nuevoTelefono,empleado.getIdentificacion());
+                UpdateData.Empleado("telefono",nuevoTelefono,empleado.getIdentificacion().getValor());
 
                 break;
             case "5":
                 System.out.println("Nueva direccion: ");
                 String nuevaDireccion = input.nextLine();
-                UpdateData.Empleado("direccion",nuevaDireccion,empleado.getIdentificacion());
+                UpdateData.Empleado("direccion",nuevaDireccion,empleado.getIdentificacion().getValor());
 
                 break;
             case "6":
@@ -77,7 +80,7 @@ public class EmpleadoCrudl {
             case "7":
                 System.out.println("Nuevo ID: ");
                 String nuevoID = input.nextLine();
-                UpdateData.Empleado("identificacion",nuevoID,empleado.getIdentificacion());
+                UpdateData.Empleado("identificacion",nuevoID,empleado.getIdentificacion().getValor());
                 break;
             default:
                 throw new Exception("Opción invalida");
@@ -88,11 +91,11 @@ public class EmpleadoCrudl {
         DeleteData.DeleteTable("Empleados","id",codigo);
     }
 
-    public ArrayList<Empleado> listarTodo(){
+    public ArrayList<Empleado> listarTodo() throws DocumentoException {
         return ConsultarData.Empleados();
     }
 
-    public Integer contar(){
+    public Integer contar() throws DocumentoException {
         return listarTodo().size();
     }
 

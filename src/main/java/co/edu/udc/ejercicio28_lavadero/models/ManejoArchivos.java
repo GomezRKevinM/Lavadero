@@ -1,17 +1,19 @@
 package co.edu.udc.ejercicio28_lavadero.models;
 
 
+import java.io.*;
+
 /**
  *
  * @author Kevin Gómez
  */
 public class ManejoArchivos {
     
-    public static void main(String[] args){
+    public static void main(String[] args) throws FileNotFoundException {
         crearArchivo("Hola.txt");
     }
     
-    public static void crearArchivo(String nombre){
+    public static void crearArchivo(String nombre) throws FileNotFoundException {
         try {
             File archivo = new File(nombre);
             PrintWriter salida = new PrintWriter(archivo);
@@ -24,7 +26,7 @@ public class ManejoArchivos {
         }
     }
 
-    public static void escribirArchivo(String nombre, String texto) throws InterruptedException, IOException{
+    public static void escribirArchivo(String nombre, String texto) throws InterruptedException, IOException {
         try {
             File archivo = new File(nombre);
             PrintWriter salida = new PrintWriter(archivo);
